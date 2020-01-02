@@ -12,31 +12,63 @@ var mines = function(){
 	var game;
 
 	function start(_) {
-		setConfig(_)
-		if(!initStatus) {
-			initStatus = true;
-			bindDom();
+		loadImages(function () {
+			setConfig(_)
+			if(!initStatus) {
+				initStatus = true;
+				bindDom();
+			}
+
+			w = config.width,
+			h = config.height,
+			mines = config.mines;
+
+			game_arr = [];
+			gameStatus = 0;
+			space = w * h;
+			flags = mines;
+
+			isFirst = 1;
+			if(!(mines < w * h)) {
+				w = 40,
+				h = 20,
+				mines = 80;
+			}
+
+			setInfo();
+			createDom();
+			createArr();
+		})
+	}
+
+	function loadImages(callback) {
+		var list = [
+			'1.png',
+			'2.png',
+			'3.png',
+			'4.png',
+			'5.png',
+			'6.png',
+			'7.png',
+			'8.png',
+			'flag.jpg',
+			'lose.jpg',
+			'mine.jpg',
+			'mine_right.jpg',
+			'mine_wrong.jpg',
+			'win.jpg' 
+		];
+
+		for(var i = 0; i < list.length; i++) {
+			var img = new Image();
+			img.onload = function () {
+				i--;
+				if(i === 0) {
+					callback()
+				}
+			}
+			img.src = 'images/' + list[i];
 		}
-
-		w = config.width,
-		h = config.height,
-		mines = config.mines;
-
-		game_arr = [];
-		gameStatus = 0;
-		space = w * h;
-		flags = mines;
-
-		isFirst = 1;
-		if(!(mines < w * h)) {
-			w = 40,
-			h = 20,
-			mines = 80;
-		}
-
-		setInfo();
-		createDom();
-		createArr();
 	}
 
 	function setConfig(_config) {
@@ -414,7 +446,4 @@ var mines = function(){
 	}
 }();
 
-window.onload = function(){
-	document.getElementById('loading').style.display = 'none';
-	mines.start();
-}
+mines.start();
