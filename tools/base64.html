@@ -18,6 +18,7 @@
       border-radius: 5px;
       color: #6387ff;
       display: none;
+      width: 200px;
     }
 
     a,
@@ -105,7 +106,7 @@
             fn && fn(e.target.result)
           }
           reader.readAsDataURL(file)
-          $('.copy').innerText = 'base64生成成功'
+          $('.copy').innerText = 'base64生成成功，点击复制'
           $('.copy').style.display = 'inline-block'
         } else {
           str = ''
@@ -119,7 +120,7 @@
       e.clipboardData.setData('text/plain', str)
       e.preventDefault()
       if (str) {
-        $('.copy').innerText = '复制成功'
+        $('.copy').innerText = '复制文本到剪切板成功'
       } else {
         $('.copy').innerText = '复制失败'
       }
