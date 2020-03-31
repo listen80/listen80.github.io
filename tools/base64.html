@@ -110,7 +110,7 @@
         } else {
           str = ''
           $('.copy').style.display = 'none'
-          $('.copy').html('非图片文件')
+          $('.copy').innerText = '非图片文件'
         }
       }
     }
@@ -119,9 +119,9 @@
       e.clipboardData.setData('text/plain', str)
       e.preventDefault()
       if (str) {
-        $('.copy').html('复制成功')
+        $('.copy').innerText = '复制成功'
       } else {
-        $('.copy').html('复制失败')
+        $('.copy').innerText = '复制失败'
       }
     });
 
