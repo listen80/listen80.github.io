@@ -1,20 +1,36 @@
-var lines = 15;
-var rect = 50;
-var width = (lines + 1) * rect;
-var height = (lines + 1) * rect;
+// 基本常量
+const lines = 15;
+const rect = 50;
+const width = (lines + 1) * rect;
+const height = (lines + 1) * rect;
 
-var canvas = document.createElement('canvas');
+// 画布
+const canvas = document.createElement('canvas');
 document.body.appendChild(canvas);
-var ctx = canvas.getContext('2d');
-ctx.lineWidth = 2;
+const ctx = canvas.getContext('2d');
 canvas.width = width, canvas.height = height;
 
-function draw(ctx) {
+// 游戏map
+const CHESS_MAP = new Map;
+
+const WINS_ALL = new Map;
+const WINS_MAN = new Map;
+const WINS_COM = new Map;
+
+// 游戏数据
+let count = 0; //赢法总数
+let over = false;
+let last = null;
+
+function drawCanvas() {
+    ctx.save();
     ctx.fillStyle = "#dec7a5";
     ctx.fillRect(0, 0, width, height);
-    ctx.save();
-    ctx.translate(rect, rect);
-    for (var i = 0; i < lines; i++) {
+    ctx.translate(rect, rect); // 留最左边
+
+    // 画棋盘
+    ctx.lineWidth = 2;
+    for (let i = 0; i < lines; i++) {
         ctx.beginPath();
         ctx.moveTo(0, rect * i);
         ctx.lineTo(rect * (lines - 1), rect * i);
@@ -26,207 +42,180 @@ function draw(ctx) {
         ctx.closePath();
     }
 
-    for (var z in chess) {
-        if (chess[z]) {
-            ctx.beginPath();
-            x = z % lines;
-            y = z / lines | 0;
-            var grd = ctx.createRadialGradient(x * rect - 3, y * rect - 3, 0, x * rect - 3, y * rect - 3, 20);
-            var isMy = chess[z] === 1;
-            grd.addColorStop(0, isMy ? '#666' : '#ddd');
-            grd.addColorStop(1, isMy ? '#111' : '#fff');
-            ctx.fillStyle = grd;
-            ctx.arc(x * rect, y * rect, 20, 0, Math.PI * 2);
-            ctx.fill();
-        }
+    // 画棋子
+    for (let z in CHESS_MAP) {
+        ctx.beginPath();
+        let x = z % lines;
+        let y = z / lines | 0;
+        let isMy = CHESS_MAP[z] === 1;
+        let grd = ctx.createRadialGradient(x * rect - 1, y * rect - 1, 0, x * rect - 11, y * rect - 11, 20);
+        grd.addColorStop(0, isMy ? '#666' : '#bbb');
+        grd.addColorStop(1, isMy ? '#111' : '#eee');
+        ctx.fillStyle = grd;
+        ctx.arc(x * rect, y * rect, 20, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.closePath();
     }
+
+    // 最后的棋子画圆环
     if (last) {
         ctx.beginPath();
-        ctx.strokeStyle = "#1091ff";
+        ctx.strokeStyle = "#19f";
         ctx.lineWidth = 3;
-        x = last[0], y = last[1]
-        ctx.arc(x * rect, y * rect, 20, 0, Math.PI * 2);
+        ctx.arc(last[0] * rect, last[1] * rect, 20, 0, Math.PI * 2);
         ctx.stroke();
+        ctx.closePath();
     }
     ctx.restore();
 }
 
-var chess = {};
-var over = false;
-var last = null;
+function nextStep(x, y, my) {
+    CHESS_MAP[y * lines + x] = my;
+    last = [x, y];
+    drawCanvas();
+}
+
+function createKey(i, j) {
+    return i + ',' + j;
+}
+    
+function calculateWins(argument) {
+    for (let i = 0; i < 15; i++) {
+        for (let j = 0; j < 15; j++) {
+            WINS_ALL[createKey(i, j)] = {};
+        }
+    }
+
+    for (let i = 0; i < 15; i++) {
+        for (let j = 0; j < 15; j++) {
+            //横线赢法
+            if(j < 11) {
+                for (let k = 0; k < 5; k++) {
+                    WINS_ALL[createKey(i, j + k)][count] = 1;
+                }
+                count++;
+            }
+
+            //竖线赢法
+            if(i < 11) {
+                for (let k = 0; k < 5; k++) {
+                    WINS_ALL[createKey(i + k, j)][count] = 1;
+                }
+                count++;
+            }
+
+            //正斜线赢法
+            if(j < 11 && i < 11) {
+                for (let k = 0; k < 5; k++) {
+                    WINS_ALL[createKey(i + k, j + k)][count] = 1;
+                }
+                count++;
+            }
+
+            //反斜线赢法
+            if(i < 11 && j > 3) {
+                for (let k = 0; k < 5; k++) {
+                    WINS_ALL[createKey(i + k, j - k)][count] = 1;
+                }
+                count++;
+            }
+        }
+    }
+
+    for (let i = 0; i < count; i++) {
+        WINS_MAN[i] = 0;
+        WINS_COM[i] = 0;
+    }
+}
+
+
+function AI() {
+    let max = 0 - (7) ** 2 - (7) ** 2, u = -1, v = -1;
+    for (let i = 0; i < 15; i++) {
+        for (let j = 0; j < 15; j++) {
+            if (CHESS_MAP[i * lines + j] === undefined) {
+                let score = 0 - (7 - i) ** 2 - (7 - j) ** 2;
+                for (let k in WINS_ALL[createKey(i, j)]) {
+                    // 已方有利的点，得分高
+                    if (WINS_COM[k] === 1) {
+                        score += 1e1;
+                    } else if (WINS_COM[k] === 2) {
+                        score += 1e2;
+                    } else if (WINS_COM[k] === 3) {
+                        score += 1e3;
+                    } else if (WINS_COM[k] === 4) {
+                        return {u: i, v: j};
+                    }
+
+                    // 危险的点，得分高
+                    if (WINS_MAN[k] == 1) {
+                        score += 1e1;
+                    } else if (WINS_MAN[k] === 2) {
+                        score += 1e2;
+                    } else if (WINS_MAN[k] === 3) {
+                        score += 1e3;
+                    } else if (WINS_MAN[k] === 4) {
+                        return {u: i, v: j};
+                    }
+                }
+                if(score > max) {
+                    max = score;
+                    u = i;
+                    v = j;
+                }
+            }
+        }
+    }
+    if(u === -1) {
+        throw 'chess full'
+    }
+    return {u, v};
+}
+
 canvas.addEventListener('click', function (e) {
     if (over) {
         return;
     }
-    var x = (e.offsetX - rect / 2) / rect | 0;
-    var y = (e.offsetY - rect / 2) / rect | 0;
+    const x = e.offsetX / rect - 1 / 2 | 0;
+    const y = e.offsetY / rect - 1 / 2 | 0;
 
-    if (x >= 0 && x < lines && y >= 0 && y < lines && !chess[y * lines + x]) {
-        chess[y * lines + x] = 1;
-        last = [x, y];
-        draw(ctx);
-        for (var k = 0; k < count; k++) {
-            if (wins[y][x][k]) {
-                myWin[k]++;
-                computerWin[k] = 6; //这个位置对方不可能赢了
-                if (myWin[k] == 5) {
-                    alert('你赢了');
-                    over = true;
-                    break;
-                }
+    if (x >= 0 && x < lines && y >= 0 && y < lines && !CHESS_MAP[y * lines + x]) {
+         // 落于棋盘内，且无子
+        nextStep(x, y, 1)
+        for(let k in WINS_ALL[createKey(y, x)]) {
+            WINS_MAN[k]++;
+            WINS_COM[k] = -1; //这个位置对方不可能赢了
+            if (WINS_MAN[k] === 5) {
+                over = true;
             }
         }
-
-        if (!over) {
-            requestAnimationFrame(AI)
+        if (over) {
+            setTimeout(function () {
+                alert('你赢了');
+            }, 16)
+        } else {
+            setTimeout(function () {
+                console.time("AI")
+                const {u, v} = AI();
+                console.timeEnd("AI")
+                nextStep(v, u, -1)
+                for (let k in WINS_ALL[createKey(u, v)]) {
+                    WINS_COM[k]++;
+                    WINS_MAN[k] = -1; //这个位置对方不可能赢了
+                    if (WINS_COM[k] === 5) {
+                        over = true;
+                    }
+                }
+                if(over) {
+                    setTimeout(function () {
+                        alert('你输了');
+                    }, 16)
+                }
+            }, 16)
         }
     }
 })
 
-var myWin = [];
-var computerWin = [];
+calculateWins();
 
-//赢法数组
-var wins = [];
-for (var i = 0; i < 15; i++) {
-    wins[i] = [];
-    for (var j = 0; j < 15; j++) {
-        wins[i][j] = {};
-    }
-}
-
-var count = 0; //赢法总数
-//横线赢法
-for (var i = 0; i < 15; i++) {
-    for (var j = 0; j < 11; j++) {
-        for (var k = 0; k < 5; k++) {
-            wins[i][j + k][count] = true;
-        }
-        count++;
-    }
-}
-
-//竖线赢法
-for (var i = 0; i < 15; i++) {
-    for (var j = 0; j < 11; j++) {
-        for (var k = 0; k < 5; k++) {
-            wins[j + k][i][count] = true;
-        }
-        count++;
-    }
-}
-
-//正斜线赢法
-for (var i = 0; i < 11; i++) {
-    for (var j = 0; j < 11; j++) {
-        for (var k = 0; k < 5; k++) {
-            wins[i + k][j + k][count] = true;
-        }
-        count++;
-    }
-}
-
-//反斜线赢法
-for (var i = 0; i < 11; i++) {
-    for (var j = 14; j > 3; j--) {
-        for (var k = 0; k < 5; k++) {
-            wins[i + k][j - k][count] = true;
-        }
-        count++;
-    }
-}
-
-for (var i = 0; i < count; i++) {
-    myWin[i] = 0;
-    computerWin[i] = 0;
-}
-
-function AI() {
-    if (Object.keys(chess).length === lines * lines) {
-        alert('not enough space')
-        return;
-    }
-
-    var myScore = [];
-    var computerScore = [];
-    var max = 0;
-    var u = 0,
-        v = 0;
-    for (var i = 0; i < 15; i++) {
-        myScore[i] = [];
-        computerScore[i] = [];
-        for (var j = 0; j < 15; j++) {
-            myScore[i][j] = 0;
-            computerScore[i][j] = 0;
-        }
-    }
-    for (var i = 0; i < 15; i++) {
-        for (var j = 0; j < 15; j++) {
-            if (!chess[i * lines + j]) {
-                for (var k = 0; k < count; k++) {
-                    if (wins[i][j][k]) {
-                        if (myWin[k] == 1) {
-                            myScore[i][j] += 200;
-                        } else if (myWin[k] == 2) {
-                            myScore[i][j] += 400;
-                        } else if (myWin[k] == 3) {
-                            myScore[i][j] += 2000;
-                        } else if (myWin[k] == 4) {
-                            myScore[i][j] += 10000;
-                        }
-
-                        if (computerWin[k] == 1) {
-                            computerScore[i][j] += 220;
-                        } else if (computerWin[k] == 2) {
-                            computerScore[i][j] += 420;
-                        } else if (computerWin[k] == 3) {
-                            computerScore[i][j] += 2100;
-                        } else if (computerWin[k] == 4) {
-                            computerScore[i][j] += 20000;
-                        }
-                    }
-                }
-
-                if (myScore[i][j] > max) {
-                    max = myScore[i][j];
-                    u = i;
-                    v = j;
-                } else if (myScore[i][j] == max) {
-                    if (computerScore[i][j] > computerScore[u][v]) {
-                        u = i;
-                        v = j;
-                    }
-                }
-
-                if (computerScore[i][j] > max) {
-                    max = computerScore[i][j];
-                    u = i;
-                    v = j;
-                } else if (computerScore[i][j] == max) {
-                    if (myScore[i][j] > myScore[u][v]) {
-                        u = i;
-                        v = j;
-                    }
-                }
-
-            }
-        }
-    }
-    chess[u * lines + v] = -1;
-    last = [v, u]
-    draw(ctx);
-    for (var k = 0; k < count; k++) {
-        if (wins[u][v][k]) {
-            computerWin[k]++;
-            myWin[k] = 6; //这个位置对方不可能赢了
-            if (computerWin[k] == 5) {
-                requestAnimationFrame(function () {
-                    alert('计算机赢了');
-                })
-                over = true;
-                break;
-            }
-        }
-    }
-}
-draw(ctx);
+drawCanvas();
