@@ -29,7 +29,7 @@ function drawCanvas() {
     ctx.translate(rect, rect); // 留最左边
 
     // 画棋盘
-    ctx.lineWidth = 2;
+    ctx.lineWidth = Math.ceil(rect / 50);
     for (let i = 0; i < lines; i++) {
         ctx.beginPath();
         ctx.moveTo(0, rect * i);
@@ -48,11 +48,11 @@ function drawCanvas() {
         let x = z % lines;
         let y = z / lines | 0;
         let isMy = CHESS_MAP[z] === 1;
-        let grd = ctx.createRadialGradient(x * rect - 1, y * rect - 1, 0, x * rect - 11, y * rect - 11, 20);
-        grd.addColorStop(0, isMy ? '#666' : '#bbb');
-        grd.addColorStop(1, isMy ? '#111' : '#eee');
+        let grd = ctx.createRadialGradient(x * rect, y * rect, 0, x * rect, y * rect, 2 * rect / 5);
+        grd.addColorStop(0, isMy ? '#666' : '#ccc');
+        grd.addColorStop(1, isMy ? '#111' : '#fff');
         ctx.fillStyle = grd;
-        ctx.arc(x * rect, y * rect, 20, 0, Math.PI * 2);
+        ctx.arc(x * rect, y * rect, 2 * rect / 5, 0, Math.PI * 2);
         ctx.fill();
         ctx.closePath();
     }
@@ -61,8 +61,8 @@ function drawCanvas() {
     if (last) {
         ctx.beginPath();
         ctx.strokeStyle = "#19f";
-        ctx.lineWidth = 3;
-        ctx.arc(last[0] * rect, last[1] * rect, 20, 0, Math.PI * 2);
+        ctx.lineWidth = rect / 20;
+        ctx.arc(last[0] * rect, last[1] * rect, 2 * rect / 5, 0, Math.PI * 2);
         ctx.stroke();
         ctx.closePath();
     }
@@ -80,14 +80,14 @@ function createKey(i, j) {
 }
     
 function calculateWins(argument) {
-    for (let i = 0; i < 15; i++) {
-        for (let j = 0; j < 15; j++) {
+    for (let i = 0; i < lines; i++) {
+        for (let j = 0; j < lines; j++) {
             WINS_ALL[createKey(i, j)] = {};
         }
     }
 
-    for (let i = 0; i < 15; i++) {
-        for (let j = 0; j < 15; j++) {
+    for (let i = 0; i < lines; i++) {
+        for (let j = 0; j < lines; j++) {
             //横线赢法
             if(j < 11) {
                 for (let k = 0; k < 5; k++) {
@@ -131,8 +131,8 @@ function calculateWins(argument) {
 
 function AI() {
     let max = 0 - (7) ** 2 - (7) ** 2, u = -1, v = -1;
-    for (let i = 0; i < 15; i++) {
-        for (let j = 0; j < 15; j++) {
+    for (let i = 0; i < lines; i++) {
+        for (let j = 0; j < lines; j++) {
             if (CHESS_MAP[i * lines + j] === undefined) {
                 let score = 0 - (7 - i) ** 2 - (7 - j) ** 2;
                 for (let k in WINS_ALL[createKey(i, j)]) {
