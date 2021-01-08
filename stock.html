@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title></title>
+    <title>Stock</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
@@ -63,7 +64,7 @@
         <div class="stock-table">
             <table>
                 <tr :class="['stock', 1 % 2 ? 'odd' : 'even']">
-                    <td v-for="(info, infoIndex) in title" v-if="title[infoIndex]" :title="info" class="ellipsis">{{info}}</td>
+                    <td v-for="(info, infoIndex) in title" v-if="title[infoIndex]" :title="info" class="ellipsis" @click="sort(infoIndex)">{{info}}</td>
                 </tr>
                 <tr :class="['stock', index % 2 ? 'odd' : 'even']" v-for="(stock, index) in stock300">
                     <td v-for="(info, infoIndex) in stock" v-if="title[infoIndex]" :title="info" class="ellipsis">{{info}}</td>
@@ -133,14 +134,18 @@
             },
             click(data) {
                 this.value = data;
-                this.update(data)
+                this.update(data);
             },
             update(data, index = 12) {
                 if (data) {
-                    this.stock300 = this._stock300.filter(stock => stock.some(key => key.includes(data))).sort((next, pre) => pre[index] - next[index]);
+                    this.stock300 = this._stock300.filter(stock => stock.some(key => key.includes(data)));
                 } else {
-                    this.stock300 = this._stock300.sort((next, pre) => pre[index] - next[index]);
+                    this.stock300 = this._stock300;
                 }
+                this.sort(index);
+            },
+            sort(index = 12) {
+            	this.stock300.sort((next, pre) => pre[index] - next[index]);
                 this.$forceUpdate();
             }
         }
