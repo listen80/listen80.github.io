@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+    #app {
+      /*text-align: center;*/
+    }
+    input{
+      width: 200px;
+      height: 28px;
+      margin: 10px;
+    }
+    .stock-table table{
+    	width: 100%;
+    }
+    @media (max-width: 1000px) {
+    	.stock-table {
+	    	width: 100%;
+	    }
+	    .stock {
+	    	width: 100%;
+	    }
+    }
+    button span {
+    	display: inline-block;
+    }
+    .ellipsis {
+    	max-width: 100%;
+    	white-space: nowrap;
+    	overflow: hidden;
+    	text-overflow: ellipsis;
+    }
+    .odd {
+    	background: #ccc;
+    }
+    .even {
+    	background: #eee;
+    }
+    .map {
+    	white-space: nowrap;
+    	overflow: auto;
+    }
+    .map button {
+    	margin: 2px;
+    	width: 76px;
+    	box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+    <script src="https://cdn.bootcss.com/vue/2.5.2/vue.min.js"></script>
+    <div id="app">
+        <div class="search">
+            <input class="input" :value="value" type="text" @input="input">
+            <span>totol: {{this.stock300.length}}</span>
+        </div>
+        <div class="map"><button v-for="item in map" @click="click(item[0])"><span class="ellipsis">{{item[0]}}</span><br>{{item[1]}}</button></div>
+        <div class="stock-table">
+            <table>
+                <tr :class="['stock', 1 % 2 ? 'odd' : 'even']">
+                    <td v-for="(info, infoIndex) in title" v-if="title[infoIndex]" :title="info" class="ellipsis">{{info}}</td>
+                </tr>
+                <tr :class="['stock', index % 2 ? 'odd' : 'even']" v-for="(stock, index) in stock300">
+                    <td v-for="(info, infoIndex) in stock" v-if="title[infoIndex]" :title="info" class="ellipsis">{{info}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script type="text/javascript">
+    function loadScript(src, callback) {
+        const script = document.createElement("script");
+        script.onload = function() {
+            callback(window.stocksData)
+        };
+        script.src = src;
+        document.head.appendChild(script)
+    }
+
+    const stock300Info = {
+        title: ["代码",
+            "股票简称",
+            "主营行业",
+            "地区",
+            "", // "每股收益(元)",
+            "", // "每股净资产(元)",
+            "净资产收益率(%)	",
+            "", // "总股本(亿股)",d
+            "流通股本(亿股)",
+            "最新价(元)",
+            "流通市值(亿元)",
+            "",
+            "权重(%)",
+            "", // 000300
+            "", // 时间
+            "收盘价",
+            "涨幅(%)",
+            "交易量",
+            "交易额",
+        ],
+        url: "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx?type=SHSZZS&sty=SHSZZS&st=0&sr=-1&p=1&ps=300&js=var%20stocksData={data:[(x)]}&code=000300&rt=53669682",
+    }
+
+    new Vue({
+        el: '#app',
+        data: {
+            value: '',
+            map: [],
+            stock300: [],
+        },
+        created() {
+            this.title = stock300Info.title;
+            loadScript(stock300Info.url, (stocksData) => {
+                this._stock300 = stocksData.data.map(v => v.split(','));
+                const map = Object.create(null);
+                this._stock300.forEach(stock => {
+                    map[stock[2]] = (map[stock[2]] || 0) + 1
+                })
+                this.map = Object.entries(map).sort((next, pre) => pre[1] - next[1]);
+                this.update();
+            })
+        },
+        methods: {
+            input(e) {
+                const data = e.target.value.replace(/\s/g, '');
+                this.value = data;
+                this.update(data);
+
+            },
+            click(data) {
+                this.value = data;
+                this.update(data)
+            },
+            update(data, index = 12) {
+                if (data) {
+                    this.stock300 = this._stock300.filter(stock => stock.some(key => key.includes(data))).sort((next, pre) => pre[index] - next[index]);
+                } else {
+                    this.stock300 = this._stock300.sort((next, pre) => pre[index] - next[index]);
+                }
+                this.$forceUpdate();
+            }
+        }
+    })
+    </script>
+</body>
+
+</html>
