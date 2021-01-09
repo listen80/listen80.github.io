@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 
@@ -7,48 +6,50 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
-    #app {
-      /*text-align: center;*/
-    }
-    input{
+        input {
       width: 200px;
       height: 28px;
       margin: 10px;
     }
     .stock-table table{
-    	width: 100%;
+        width: 100%;
     }
     @media (max-width: 1000px) {
-    	.stock-table {
-	    	width: 100%;
-	    }
-	    .stock {
-	    	width: 100%;
-	    }
+        .stock-table {
+            width: 100%;
+        }
+        .stock {
+            width: 100%;
+        }
     }
     button span {
-    	display: inline-block;
+        display: inline-block;
+    }
+    tr:hover {
+        background: #abe
+    }
+    .active {
+        color: red;
     }
     .ellipsis {
-    	max-width: 100%;
-    	white-space: nowrap;
-    	overflow: hidden;
-    	text-overflow: ellipsis;
+        max-width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .odd {
-    	background: #ccc;
+        background: #ccc;
     }
     .even {
-    	background: #eee;
+        background: #eee;
     }
     .map {
-    	white-space: nowrap;
-    	overflow: auto;
+        overflow: auto;
     }
     .map button {
-    	margin: 2px;
-    	width: 76px;
-    	box-sizing: border-box;
+        margin: 2px;
+        width: 88px;
+        box-sizing: border-box;
     }
   </style>
 </head>
@@ -58,15 +59,16 @@
     <div id="app">
         <div class="search">
             <input class="input" :value="value" type="text" @input="input">
-            <span>totol: {{this.stock300.length}}</span>
+            <span>totol: {{this.stockNow.length}}</span>
+            <button v-for="(stock, i) in stockInfoList" @click="fetData(i)" :class="{active: i === index}">{{stock.name}}</button>
         </div>
-        <div class="map"><button v-for="item in map" @click="click(item[0])"><span class="ellipsis">{{item[0]}}</span><br>{{item[1]}}</button></div>
-        <div class="stock-table">
+        <div class="map" v-if="!loading"><button v-for="item in map" @click="click(item[0])"><span :class="['ellipsis', value === item[0] ? 'active': '']">{{item[0]}}</span><br>{{item[1]}}</button></div>
+        <div class="stock-table" v-if="!loading">
             <table>
                 <tr :class="['stock', 1 % 2 ? 'odd' : 'even']">
                     <td v-for="(info, infoIndex) in title" v-if="title[infoIndex]" :title="info" class="ellipsis" @click="sort(infoIndex)">{{info}}</td>
                 </tr>
-                <tr :class="['stock', index % 2 ? 'odd' : 'even']" v-for="(stock, index) in stock300">
+                <tr :class="['stock', index % 2 ? 'odd' : 'even']" v-for="(stock, index) in stockNow">
                     <td v-for="(info, infoIndex) in stock" v-if="title[infoIndex]" :title="info" class="ellipsis">{{info}}</td>
                 </tr>
             </table>
@@ -82,52 +84,52 @@
         document.head.appendChild(script)
     }
 
-    const stock300Info = {
-        title: ["代码",
-            "股票简称",
-            "主营行业",
-            "地区",
-            "", // "每股收益(元)",
-            "", // "每股净资产(元)",
-            "净资产收益率(%)	",
-            "", // "总股本(亿股)",d
-            "流通股本(亿股)",
-            "最新价(元)",
-            "流通市值(亿元)",
-            "",
-            "权重(%)",
-            "", // 000300
-            "", // 时间
-            "收盘价",
-            "涨幅(%)",
-            "交易量",
-            "交易额",
-        ],
-        url: "https://datainterface.eastmoney.com/EM_DataCenter/JS.aspx?type=SHSZZS&sty=SHSZZS&st=0&sr=-1&p=1&ps=300&js=var%20stocksData={data:[(x)]}&code=000300&rt=53669682",
-    }
-
+    const baseUrl = "https://datainterface.eastmoney.com/EM_DataCenter/JS.aspx?type=SHSZZS&sty=SHSZZS&st=0&sr=-1&p=1&ps=500&js=var%20stocksData={data:[(x)]}&code=";
+    const title = ["代码",
+        "股票简称",
+        "主营行业",
+        "地区",
+        "", // "每股收益(元)",
+        "", // "每股净资产(元)",
+        "净资产收益率(%)  ",
+        "", // "总股本(亿股)",d
+        "流通股本(亿股)",
+        "最新价(元)",
+        "流通市值(亿元)",
+        "",
+        "权重(%)",
+        "", // 000300
+        "", // 时间
+        "收盘价",
+        "涨幅(%)",
+        "交易量",
+        "交易额",
+    ];
+    const stockInfoList = [{
+        name: "沪深300",
+        code: "000300",
+    }, {
+        name: "上证50",
+        code: "000016"
+    }, {
+        name: "中证500",
+        code: "000905"
+    }]
     new Vue({
         el: '#app',
         data: {
+            loading: true,
             value: '',
+            index: 0,
             map: [],
-            stock300: [],
+            stockNow: [],
         },
         created() {
-            this.title = stock300Info.title;
-            loadScript(stock300Info.url, (stocksData) => {
-                this._stock300 = stocksData.data.map(v => v.split(','));
-                const map = Object.create(null);
-                this._stock300.forEach(stock => {
-                    map[stock[2]] = (map[stock[2]] || 0) + 1
-                })
-                this.map = Object.entries(map).sort((next, pre) => pre[1] - next[1]);
-                this.update();
-            })
+            this.init();
         },
         methods: {
             input(e) {
-                const data = e.target.value.replace(/\s/g, '');
+                const data = e.target.value;
                 this.value = data;
                 this.update(data);
 
@@ -138,15 +140,34 @@
             },
             update(data, index = 12) {
                 if (data) {
-                    this.stock300 = this._stock300.filter(stock => stock.some(key => key.includes(data)));
+                    this.stockNow = this._stockNow.filter(stock => stock.some(key => key.includes(data)));
                 } else {
-                    this.stock300 = this._stock300;
+                    this.stockNow = this._stockNow;
                 }
                 this.sort(index);
             },
             sort(index = 12) {
-            	this.stock300.sort((next, pre) => pre[index] - next[index]);
+                this.stockNow.sort((next, pre) => pre[index] - next[index]);
                 this.$forceUpdate();
+            },
+            init() {
+                this.title = title;
+                this.loading = true;
+                loadScript(baseUrl + stockInfoList[this.index].code, (stocksData) => {
+                    this._stockNow = stocksData.data.map(v => v.split(','));
+                    const map = Object.create(null);
+                    this._stockNow.forEach(stock => {map[stock[2]] = (map[stock[2]] || 0) + 1})
+                    this.map = Object.entries(map).sort((next, pre) => pre[1] - next[1]);
+                    this.loading = false;
+                    this.update(this.value);
+                })
+            },
+            fetData(i) {
+                if (this.index === i) {
+                    return;
+                }
+                this.index = i;
+                this.init();
             }
         }
     })
