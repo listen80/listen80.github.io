@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -147,7 +148,13 @@
                 this.sort(index);
             },
             sort(index = 12) {
-                this.stockNow.sort((next, pre) => pre[index] - next[index]);
+                this.stockNow.sort((next, pre) => {
+                    if (isNaN(pre[index])) {
+                        return pre[index].charCodeAt() - next[index].charCodeAt();
+                    } else {
+                        return pre[index] - next[index];
+                    }
+                });
                 this.$forceUpdate();
             },
             init() {
