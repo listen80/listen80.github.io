@@ -1,0 +1,140 @@
+<style type="text/css">
+    body {
+        margin: 40px;
+        padding: 20px;
+        border: 10px solid #ccc;
+    }
+
+    span {
+        left: 200px;
+        top: 300px;
+    }
+
+    div {
+        margin: 30px;
+        padding: 30px;
+    }
+</style>
+<div>
+    <span>drag</span>
+</div>
+<script type="text/javascript">
+    xxx = document.querySelector('span')
+
+
+    function bindMove(el) {
+        const style = getComputedStyle(el);
+        if (style.position === 'static') {
+            el.style.position = 'relative'
+        }
+        let dragging = false
+        let x = parseFloat(style.left) || 0;
+        let y = parseFloat(style.top) || 0;
+
+        function mousedown(e) {
+            dragging = true
+            baseX = e.clientX
+            baseY = e.clientY
+        }
+
+        function mousemove(e) {
+            if (dragging) {
+                el.style.left = e.clientX - baseX + x + 'px'
+                el.style.top = e.clientY - baseY + y + 'px'
+            }
+        }
+
+        function mouseup(e) {
+            if (dragging) {
+                dragging = false
+                x += e.clientX - baseX
+                y += e.clientY - baseY
+            }
+        }
+
+
+        el.addEventListener('mousedown', mousedown)
+        document.addEventListener('mousemove', mousemove)
+        document.addEventListener('mouseup', mouseup)
+        return {
+            destroy() {
+                el.removeEventListener('mousedown', mousedown)
+                document.removeEventListener('mousemove', mousemove)
+                document.removeEventListener('mouseup', mouseup)
+            },
+            getPosition() {
+                return { x, y }
+            },
+            onmosemove() {
+
+            }
+        }
+    }
+
+    bindMove(xxx);
+</script>
+<script type="text/javascript">
+    // let currying = (fn, ...args) =>
+    //     fn.length > args.length ?
+    //     (...arguments) => currying(fn, ...args, ...arguments) :
+    //     fn(...args)
+
+    let currying = function (fn) {
+
+        const refn = function () {
+            arg = [].slice.call(arguments)
+            if (arg.length < fn.length) {
+                return function () {
+                    arg = arg.concat([].slice.call(arguments))
+                    return refn(arg)
+                }
+            } else {
+                return fn.apply(fn, arg)
+            }
+        }
+        return refn
+    }
+    let addSum = (a, b, c) => a + b + c
+    let add = currying(addSum)
+    console.log(add(1)(2)(3))
+    console.log(add(1, 2)(3))
+    console.log(add(1, 2, 3, 4, 5))
+    console.log(add(1, 2, 3, 4, 5))
+</script>
+<script type="text/javascript">
+    function toString() {
+
+    }
+
+    function deepClone(obj) {
+        const type = toString(obj);
+
+        if (type === 'String') {
+            return obj;
+        }
+
+        if (type === 'Object') {
+            return obj;
+        }
+
+    }
+</script>
+<script type="text/javascript">
+    Array.prototype.flat = function () {
+        this.reduce(function (all, now) {
+            return all.concat(Array.isArray(all) ? all.flat() : all)
+        }, [])
+    }
+</script>
+<script type="text/javascript">
+    a = {
+        b: {
+            c: function function_name(argument) {
+                // body...https://jira.sensetime.com/browse/SCNOVA-7675
+                console.log(this)
+            }
+        }
+    }
+
+    a.b.c()
+</script>

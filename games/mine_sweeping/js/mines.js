@@ -1,9 +1,9 @@
-var mines = function(){
+﻿var mines = function(){
 
 	var config = {
 		width: 40,
 		height: 20,
-		mines: 80
+		mines: 140
 	}
 
 	var game_arr = [];
