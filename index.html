@@ -23,7 +23,10 @@
       color: #fff;
       font-family: Arial, sans-serif;
     }
-
+    .container {
+      perspective: 2000;
+      -webkit-perspective: 2000;
+    }
     .title {
       margin-top: 1rem;
       margin-bottom: 0;
@@ -31,7 +34,17 @@
     }
 
     .row {
-      display: flex;
+      display: inline-flex;
+      transform: rotateY(30deg) translateZ(-50px);
+      transform-origin: left;
+      transition: .5s;
+    }
+
+    .row:hover {
+      /*display: flex;*/
+      transform: rotateY(0deg) translateZ(100px);
+      /*transform-origin: right;*/
+      /*transition: 1s;*/
     }
 
     .block {
@@ -108,7 +121,7 @@
       <div class="block"><a class="link" href="practice/carousel/" target="_blank">旋转木马</a></div>
       <div class="block"><a class="link" href="practice/error/" target="_blank">错误展示</a></div>
       <div class="block"><a class="link" href="practice/fnline/" target="_blank">函数线</a></div>
-      <div class="block"><a class="link" href="practice/search/" target="_blank">搜索算法</a></div>
+      <div class="block"><a class="link" href="practice/search/" target="_blank">搜索</a></div>
     </div>
   </div>
 </body>
