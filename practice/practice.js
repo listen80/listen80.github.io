@@ -26,4 +26,5 @@ document.head.appendChild(link)
 
 loadScript('https://listen80.github.io/code-view/src/code.js', () => {
   document.querySelectorAll('script').forEach(el => {el.style.margin = "16px";code(el)})
+  document.title = document.querySelector('h1').innerText
 })
