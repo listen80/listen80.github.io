@@ -108,10 +108,10 @@ class Tetris {
         this.paints.font = ` ${this.side}px '微软雅黑','宋体'`; //设置字体
         this.paints.fillStyle = "red";
         this.paints.textBaseline = "top";
-        this.paints.textAlign = "end";   
-        this.paints.fillText("得分: " + score, (this.width + 4.5) * this.totalSide, (this.height - 3) * this.totalSide);
+        this.paints.textAlign = "center";   
+        this.paints.fillText("得分: " + score, (this.width + 3) * this.totalSide, (this.height - 3) * this.totalSide);
         if (msg) {
-            this.paints.fillText(msg, (this.width + 2.5) * this.totalSide, (this.height - 5) * this.totalSide);
+            this.paints.fillText(msg, (this.width + 3) * this.totalSide, (this.height - 5) * this.totalSide);
         }
     }
     gameStop() {
