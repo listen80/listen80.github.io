@@ -2,11 +2,13 @@
 
 ## 项目
 
-[学习笔记](https://listen80.github.io/learning-notes/)  
-
 [模板引擎](https://listen80.github.io/listen-template/)  
 
 [高亮代码](https://listen80.github.io/code-view/)  
+
+[JS库](https://listen80.github.io/helpjs/)  
+
+[Chrome工具](https://listen80.github.io/helpjs/)  
 
 ## 游戏
 
@@ -21,3 +23,7 @@
 [男人下百层](https://listen80.github.io/games/man_down/)  
 
 [扫雷](https://listen80.github.io/games/mine_sweeping/)  
+
+[俄罗斯方块](https://listen80.github.io/games/tetris/)  
+
+[中国象棋 Worker](https://listen80.github.io/games/chinese_chess/)  
