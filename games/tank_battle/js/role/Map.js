@@ -4,7 +4,7 @@ import Obstacle from "./Obstacle.js"
 class RoundGame extends Node {
   constructor(round) {
     super({ left: 0, top: 0, width: 26, height: 26 });
-    this.map = maps[round];
+    this.map = window.maps[round];
     this.map.forEach((row, top) =>
       row.forEach((value, left) => {
         if (value) {

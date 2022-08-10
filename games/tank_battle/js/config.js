@@ -1,4 +1,3 @@
-
 export const BOX_WIDTH = 26;
 export const BOX_HEIGHT = 26;
 export const BOX_SIZE = 30;
