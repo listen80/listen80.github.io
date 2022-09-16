@@ -2,13 +2,11 @@
 
 ## 项目
 
-[模板引擎](https://listen80.github.io/listen-template/)  
+[html模板引擎](https://listen80.github.io/listen-template/)  
 
-[高亮代码](https://listen80.github.io/code-view/)  
+[高亮代码插件](https://listen80.github.io/code-view/)  
 
-[JS库](https://listen80.github.io/helpjs/)  
-
-[Chrome工具](https://listen80.github.io/helpjs/)  
+[Chrome Json格式化工具](https://listen80.github.io/helpjs/)  
 
 ## 游戏
 
