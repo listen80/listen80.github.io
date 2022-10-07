@@ -1,201 +1,52 @@
-﻿<!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="zh">
 
 <head>
-  <title>Listen</title>
-  <link rel="shortcut icon" type="image/ico" href="favicon.ico" />
-  <meta name="renderer" content="webkit">
-  <meta charset="utf8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <style>
-    html {
-      height: 100%;
-    }
-
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100%;
-      margin: 0;
-      background-color: #002;
-      background-image: radial-gradient(circle at center, #046, #002);
-      color: #fff;
-      font-family: Arial, sans-serif;
-    }
-
-    .container {
-      perspective: 2000;
-      -webkit-perspective: 2000;
-    }
-
-    .title {
-      margin-top: 1rem;
-      margin-bottom: 0;
-      font-size: 1.25rem;
-    }
-
-    .row {
-      display: inline-flex;
-      transform: rotateY(15deg) translateZ(-50px);
-      transform-origin: left;
-      transition: .5s;
-    }
-
-    .row:hover {
-      transform: rotateY(0deg) translateZ(100px);
-    }
-
-    .row:hover .block {
-      animation: ani .2s 1;
-      -webkit-animation: ani .2s 1;
-    }
-
-    @keyframes ani {
-      from {
-        transform: translate(0px, 0px);
-      }
-
-      50% {
-        transform: translate(0px, -30px) scale(1.1, 1.1);
-      }
-
-      to {
-        transform: translate(0px, 0px);
-      }
-    }
-
-    @-webkit-keyframes ani {
-      from {
-        transform: translate(0px, 0px);
-      }
-
-      50% {
-        transform: translate(0px, -30px) scale(1.1, 1.1);
-      }
-
-      to {
-        transform: translate(0px, 0px);
-      }
-    }
-
-    .block {
-      text-align: center;
-      margin: 1rem 0 0 1.5rem;
-    }
-
-    .row:hover .block:nth-child(0) {
-      animation-delay: 0.1s;
-    }
-
-    .row:hover .block:nth-child(1) {
-      animation-delay: 0.2s;
-    }
-
-    .row:hover .block:nth-child(2) {
-      animation-delay: 0.3s;
-    }
-
-    .row:hover .block:nth-child(3) {
-      animation-delay: 0.4s;
-    }
-
-    .row:hover .block:nth-child(4) {
-      animation-delay: 0.5s;
-    }
-
-    .row:hover .block:nth-child(5) {
-      animation-delay: 0.6s;
-    }
-
-    .row:hover .block:nth-child(6) {
-      animation-delay: 0.7s;
-    }
-
-    .row:hover .block:nth-child(7) {
-      animation-delay: 0.8s;
-    }
-
-    .row:hover .block:nth-child(8) {
-      animation-delay: 0.9s;
-    }
-
-    .row:hover .block:nth-child(9) {
-      animation-delay: 1s;
-    }
-
-    .row:hover .block:nth-child(10) {
-      animation-delay: 1.1s;
-    }
-
-    .link {
-      position: relative;
-      display: inline-block;
-      width: 7rem;
-      height: 7rem;
-      line-height: 7rem;
-      border-radius: 50%;
-      font-size: 18px;
-      color: #ddf;
-      text-decoration: none;
-      box-shadow: 0 0 10px 2px #0cf, 0 0 4px 2px #0cf inset, 0 0 16px #0cf inset;
-      transition: transform 0.1s linear, box-shadow 0.15s linear;
-    }
-
-    .link:hover {
-      box-shadow: 0 0 20px 2px #0cf, 0 0 4px 2px #0cf inset, 0 0 66px #0cf inset;
-      transform: scale(1.1);
-    }
-
-    .link:before {
-      content: "";
-      position: absolute;
-      top: 1em;
-      left: 1em;
-      width: 1.2em;
-      height: 0.5em;
-      background-color: rgba(255, 255, 255, .5);
-      border-radius: 50%;
-      transform: rotate(-35deg);
-    }
-  </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello world</title>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
-  <div class="container">
-    <div class="title">游戏</div>
-    <div class="row">
-      <div class="block"><a class="link" href="games/chinese_chess/" target="_blank">中国象棋</a></div>
-      <div class="block"><a class="link" href="games/chess/" target="_blank">国际象棋</a></div>
-      <div class="block"><a class="link" href="games/gomoku/" target="_blank">五子棋</a></div>
-      <div class="block"><a class="link" href="games/tank_battle/" target="_blank">坦克大战</a></div>
-      <div class="block"><a class="link" href="games/man_down/" target="_blank">男人下百层</a></div>
-      <div class="block"><a class="link" href="games/mine_sweeping/" target="_blank">扫雷</a></div>
-      <div class="block"><a class="link" href="games/tetris/" target="_blank">俄罗斯方块</a></div>
-      <div class="block"><a class="link" href="games/chess_cn/" target="_blank">象棋Worker</a></div>
+    <div class="satic-area">
+        <div class="dynamic-area1"></div>
+        <div class="dynamic-area2"></div>
     </div>
-    <div class="title">工具</div>
-    <div class="row">
-      <div class="block"><a class="link" href="tools/stock.html" target="_blank">沪深300</a></div>
-      <div class="block"><a class="link" href="tools/http_code.html" target="_blank">HTTP Status</a></div>
-      <div class="block"><a class="link" href="tools/ascii_code.html" target="_blank">ASCII码</a></div>
-      <div class="block"><a class="link" href="tools/loan.html" target="_blank">贷款计算</a></div>
-      <div class="block"><a class="link" href="tools/qrcode.html" target="_blank">二维码生成</a></div>
-      <div class="block"><a class="link" href="tools/base64.html" target="_blank">图转base64</a></div>
-      <div class="block"><a class="link" href="tools/simple_trandition.html" target="_blank">简繁转换</a></div>
-      <div class="block"><a class="link" href="tools/markdown.html" target="_blank">Markdown</a></div>
+    <div class="flex-center">
+        <div class="container">
+            <div class="title">游戏</div>
+            <div class="row">
+                <div class="col"><a class="link" href="games/chinese_chess/" target="_blank">中国象棋</a></div>
+                <div class="col"><a class="link" href="games/chess/" target="_blank">国际象棋</a></div>
+                <div class="col"><a class="link" href="games/gomoku/" target="_blank">五子棋</a></div>
+                <div class="col"><a class="link" href="games/tank_battle/" target="_blank">坦克大战</a></div>
+                <div class="col"><a class="link" href="games/man_down/" target="_blank">男人下百层</a></div>
+                <div class="col"><a class="link" href="games/mine_sweeping/" target="_blank">扫雷</a></div>
+                <div class="col"><a class="link" href="games/tetris/" target="_blank">俄罗斯方块</a></div>
+                <div class="col"><a class="link" href="games/chess_cn/" target="_blank">象棋Worker</a></div>
+            </div>
+            <div class="title">工具</div>
+            <div class="row">
+                <div class="col"><a class="link" href="tools/stock.html" target="_blank">沪深300</a></div>
+                <div class="col"><a class="link" href="tools/http_code.html" target="_blank">HTTP Status</a></div>
+                <div class="col"><a class="link" href="tools/ascii_code.html" target="_blank">ASCII码</a></div>
+                <div class="col"><a class="link" href="tools/loan.html" target="_blank">贷款计算</a></div>
+                <div class="col"><a class="link" href="tools/qrcode.html" target="_blank">二维码生成</a></div>
+                <div class="col"><a class="link" href="tools/base64.html" target="_blank">图转base64</a></div>
+                <div class="col"><a class="link" href="tools/simple_trandition.html" target="_blank">简繁转换</a></div>
+                <div class="col"><a class="link" href="tools/markdown.html" target="_blank">Markdown</a></div>
+            </div>
+            <div class="title">项目</div>
+            <div class="row">
+                <div class="col"><a class="link" href="/personal-introduction/" target="_blank">自我介绍</a></div>
+                <div class="col"><a class="link" href="/listen-template/" target="_blank">模板引擎</a></div>
+                <div class="col"><a class="link" href="/code-view/" target="_blank">高亮代码引擎</a></div>
+                <div class="col"><a class="link" href="/my-chrome-tools/" target="_blank">Chrome扩展</a></div>
+            </div>
+        </div>
     </div>
-    <div class="title">项目</div>
-    <div class="row">
-      <div class="block"><a class="link" href="/listen-template/" target="_blank">模板引擎</a></div>
-      <div class="block"><a class="link" href="/code-view/" target="_blank">高亮代码引擎</a></div>
-      <div class="block"><a class="link" href="/my-chrome-tools/" target="_blank">Chrome扩展</a></div>
-    </div>
-    <div class="title">其他</div>
-    <div class="row">
-      <div class="block"><a class="link" href="/personal-introduction/" target="_blank">新人介绍</a></div>
-    </div>
-  </div>
 </body>
 
 </html>
