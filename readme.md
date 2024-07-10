@@ -6,7 +6,7 @@
 
 [高亮代码插件](https://listen80.github.io/code-view/)  
 
-[Chrome Json格式化工具](https://listen80.github.io/helpjs/)  
+[Chrome Json格式化工具](https://listen80.github.io/my-chrome-tools/)  
 
 ## 游戏
 
