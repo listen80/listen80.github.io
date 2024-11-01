@@ -1,31 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <style>
-        body {
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-        }
-        .a {
-            height: 200px;
-        }
-        .b {
-            background-color: aqua;
-        }
-        .c {
-            border: 1px solid red;
-            height: 60px;
-        }
+      body {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+      }
+      .a {
+        height: 200px;
+        flex-shrink: 0;
+        background-color: burlywood;
+      }
+      .b {
+        background-color: aqua;
+        flex-shrink: 0;
+      }
+      .b2 {
+        overflow: auto;
+      }
+      .c {
+        border: 1px solid red;
+        height: 60px;
+      }
     </style>
-    <div class="a"></div>
+    <div class="a">sdfasf</div>
     <div class="b">
+      <div class="b2">
         <div class="c">sss</div>
         <div class="c">sss</div>
         <div class="c">sss</div>
@@ -41,6 +48,7 @@
         <div class="c">sss</div>
         <div class="c">sss</div>
         <div class="c">sss</div>
+      </div>
     </div>
-</body>
+  </body>
 </html>
