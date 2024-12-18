@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline';"> -->
+    <title>html2md</title>
+    <script src="https://raw.githubusercontent.com/BeneathTheInk/html2md/refs/heads/master/lib/html2md.js"></script>
+    <script src="https://cdn.bootcss.com/highlight.js/9.15.8/highlight.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        #content {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        #content>div {
+            border: 1px dashed lime;
+            border-radius: 8px;
+            padding: 10px;
+            height: 95%;
+            width: 45%;
+            box-sizing: border-box;
+        }
+
+        #content pre {
+            margin-left: auto;
+            margin-right: auto;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 0.7rem;
+            padding-right: 0.7rem;
+            line-height: 1.2;
+            overflow-x: hidden;
+
+            color: #FFF;
+
+            background: #111;
+            border-radius: 5px;
+        }
+
+        #content code {
+            color: #a6e22e;
+            font-size: 0.7rem;
+            font-weight: normal;
+            font-family: Consolas, "Courier New", Courier, FreeMono, monospace;
+
+            background: #111;
+            border-radius: 2px;
+        }
+
+        #content p code,
+        #content li>code,
+        #content h2>code,
+        #content h3>code {
+            padding-left: 3px;
+            padding-right: 3px;
+            color: #c7254e;
+            background: #f9f2f4;
+        }
+
+        #content h2 {
+            margin-top: 50px;
+            margin-bottom: 0px;
+
+            padding-top: 20px;
+            padding-bottom: 0px;
+
+            font-size: 18px;
+            text-align: left;
+
+            border-top: 2px solid #666;
+
+            counter-increment: section;
+        }
+
+        #content h2:before {
+            content: counter(section) ". ";
+        }
+
+        #content h3 {
+            margin-top: 50px;
+            margin-bottom: 0px;
+
+            padding-top: 20px;
+            padding-bottom: 0px;
+
+            text-align: left;
+            border-top: 1px dotted #777;
+        }
+
+        #content h2:hover,
+        #content h3:hover {
+            color: #ED1C24;
+        }
+
+        #content img {
+            max-width: 100%;
+        }
+
+        #content ul {
+            display: block;
+            list-style-type: none;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        #content ol {
+            display: block;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+
+        #content ul li:before {
+            /* a hack to have dashes as a list style */
+            content: "-";
+            position: relative;
+            left: -5px;
+        }
+
+        #content ul li,
+        #content ol li {
+            text-indent: -5px;
+            /* to compensate for the padding for the dash */
+            font-size: 0.8rem;
+        }
+
+        #content ul li.link,
+        #content ol li.link {
+            color: #2980b9;
+            text-decoration: none;
+            font-size: 0.7rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #content a:link,
+        #content a:visited {
+            color: #4682BE;
+            text-decoration: none;
+        }
+
+        #content .content-toc {
+            background: #bdc3c7;
+            border-radius: 5px;
+        }
+
+        #content table {
+            display: block;
+            width: 100%;
+            overflow: auto;
+            word-break: normal;
+            word-break: keep-all
+        }
+
+        #content table th {
+            font-weight: bold
+        }
+
+        #content table th,
+        #content table td {
+            padding: 6px 13px;
+            border: 1px solid #ddd
+        }
+
+        #content table tr {
+            background-color: #fff;
+            border-top: 1px solid #ccc
+        }
+
+        #content table tr:nth-child(2n) {
+            background-color: #f8f8f8
+        }
+
+        #input {
+            height: 100%;
+            width: 100%;
+            resize: none;
+            padding: 0;
+            border: none;
+            outline: none;
+        }
+
+        #out {
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="content">
+        <div><textarea id="input" cols="30" rows="10"></textarea></div>
+        <div id="out"></div>
+    </div>
+    <script>
+
+        var input = document.querySelector('#input')
+        input.onkeyup = function () {
+            render(this.value)
+        }
+
+        input.ondragover = function (e) {
+            e.preventDefault()
+        }
+        input.ondrop = function (e) {
+            e.preventDefault()
+            var file = e.dataTransfer.files[0]
+            loadFile(file)
+        }
+
+        function render(md) {
+            localStorage.setItem('md', md)
+            input.value = md
+            out.innerHTML = html2md(md)
+            document.querySelectorAll('pre').forEach(function (el) {
+                hljs.highlightBlock(el)
+            })
+        }
+
+        var md = localStorage.getItem('md') || '# hello'
+        if (md) {
+            render(md)
+        }
+
+        function loadFile(file, fn) {
+            if (file) {
+                var reader = new FileReader()
+                reader.onload = function (e) {
+                    render(e.target.result)
+                }
+                reader.readAsText(file)
+            }
+        }
+
+        input.oncontextmenu = function () {
+            var input = document.createElement('input')
+            input.type = "file"
+            input.accept = "image/gif, image/jpeg, image/png"
+            input.onchange = function (e) {
+                loadFile(this.files[0])
+            }
+            input.click()
+            return false
+        }
+    </script>
+</body>
+
+</html>
