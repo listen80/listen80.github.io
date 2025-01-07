@@ -79,7 +79,7 @@ function createKey(i, j) {
     return i + ',' + j;
 }
     
-function calculateWins(argument) {
+function calculateWins() {
     for (let i = 0; i < lines; i++) {
         for (let j = 0; j < lines; j++) {
             WINS_ALL[createKey(i, j)] = {};
