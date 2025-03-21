@@ -1,22 +1,21 @@
-import {
-  BOX_HEIGHT,
-  BOX_WIDTH,
-  BOX_SIZE,
-  TANK_SIZE,
-  BULLET_SIZE,
-} from "./size.js";
+import { width, height } from "./size.js";
 
-var canvas = document.createElement("canvas");
-document.body.appendChild(canvas);
-var ctx = canvas.getContext("2d");
+export default class Canvas {
+  constructor() {
+    var canvas = document.createElement("canvas");
+    document.body.appendChild(canvas);
+    var ctx = canvas.getContext("2d");
+    this.ctx = ctx;
 
-var width = BOX_SIZE * BOX_WIDTH;
-var height = BOX_SIZE * BOX_HEIGHT;
-
-canvas.width = width;
-canvas.height = height;
-ctx.font = "bold 50px Arial";
-ctx.textAlign = "center";
-
-export default canvas;
-export { ctx };
+    canvas.width = width;
+    canvas.height = height;
+    ctx.font = "bold 50px Arial";
+    ctx.textAlign = "center";
+    this.canvas = canvas;
+  }
+  clear() {
+    const { ctx } = this;
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  }
+}

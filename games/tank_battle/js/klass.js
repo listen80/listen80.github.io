@@ -2,91 +2,126 @@ import { imgs, audios } from "./resource.js";
 import { BOX_SIZE, TANK_SIZE } from "./size.js";
 import { each } from "./utils.js";
 
-export class Group extends Array {
-  #parent;
-  #self;
+export class Base {
+  #parent = null;
+  #root = null;
+  constructor({ x = 0, y = 0, w = 0, h = 0 } = {}) {
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+  }
+  setParent(p) {
+    this.#parent = p;
+    this.#root = this.#parent.#root;
+  }
+  remove() {
+    this.#parent.removeChild(this);
+  }
+}
+
+export class Group extends Base {
+  #children = [];
   constructor(...rest) {
     super();
-    console.log(rest);
     rest.forEach((child) => {
       this.add(child);
     });
   }
-  add(child) {
-    if (typeof child === "object" && child) {
-      child.#parent = this;
-      this.push(child);
+  removeChild(child) {
+    const index = this.#children.indexOf(child);
+    const re = this.#children.splice(index, 1);
+    if (re.length) {
+      child.setParent(null);
     } else {
-      //   console.error(child, this);
+      console.error("?????");
+    }
+  }
+  add(...childlren) {
+    for (let child of childlren) {
+      if (typeof child === "object" && child) {
+        child.setParent(this);
+        // child.#parent = this;
+        this.#children.push(child);
+      } else {
+        //   console.error(child, this);
+      }
     }
   }
   reset() {
-    this.splice(0, this.length);
+    this.#children.splice(0, this.length);
     console.warn("reset");
   }
-  step() {
-    this.forEach((child, i) => {
-      child.step?.(i);
+  step(controller) {
+    this.#children.forEach((child, i) => {
+      child.step?.(controller);
     });
   }
   draw(ctx) {
-    this.forEach((child, i) => {
+    this.#children.forEach((child, i) => {
       child.draw?.(ctx, i);
     });
   }
 }
 
-export class Base {
-  #parent;
+export class Spirit extends Base {
   constructor(x, y, w, h, img) {
+    super({ x, y, w, h });
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
     this.img = img;
   }
-  remove() {
-    const index = this.#parent.indexOf(this);
-    this.#parent.splice(index, 1);
-  }
   draw(ctx) {
     ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
   }
 }
 
-export class Grass extends Base {
-  constructor(x, y) {
+export class Text extends Base {
+  constructor(pos, text) {
+    super(pos);
+    this.text = text;
+  }
+  draw(ctx) {
+    ctx.fillStyle = "red";
+    ctx.fillText(this.text, this.x, this.y);
+  }
+}
+
+export class Grass extends Spirit {
+  constructor(x, y, imgs) {
     super(x * BOX_SIZE, y * BOX_SIZE, BOX_SIZE, BOX_SIZE, imgs.grass);
   }
 }
 
-export class Water extends Base {
-  constructor(x, y) {
+export class Water extends Spirit {
+  constructor(x, y, imgs) {
     super(x * BOX_SIZE, y * BOX_SIZE, BOX_SIZE, BOX_SIZE, imgs.water);
   }
 }
 
-export class Wall extends Base {
-  constructor(x, y, img) {
+export class Wall extends Spirit {
+  constructor(x, y, imgs) {
     super(x * BOX_SIZE, y * BOX_SIZE, BOX_SIZE, BOX_SIZE, imgs.wall);
     this.canBeDestoried = true;
     // this.fatherArray = WallArray;
   }
 }
 
-export class Steel extends Base {
-  constructor(x, y, img) {
+export class Steel extends Spirit {
+  constructor(x, y, imgs) {
     super(x * BOX_SIZE, y * BOX_SIZE, BOX_SIZE, BOX_SIZE, imgs.steel);
   }
 }
 
-export class Home extends Base {
-  constructor(x, y) {
+export class Home extends Spirit {
+  constructor(x, y, imgs) {
     super(x * BOX_SIZE, y * BOX_SIZE, BOX_SIZE * 2, BOX_SIZE * 2, imgs.home);
   }
 }
 
-export class Move extends Base {
+export class Move extends Spirit {
   constructor(x, y, w, h, img) {
     super(x, y, w, h, img);
   }
@@ -329,7 +364,7 @@ export class Enemy extends Tank {
   }
 }
 
-export class Boom extends Base {
+export class Boom extends Spirit {
   constructor(props) {
     var destoryProps = props.destoryProps;
     super(
