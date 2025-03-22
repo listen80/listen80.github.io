@@ -1,6 +1,5 @@
-import { imgs, audios } from "./resource.js";
-import { BOX_SIZE, TANK_SIZE } from "./size.js";
-import { each } from "./utils.js";
+import { BOX_SIZE, TANK_SIZE } from "../js/size.js";
+import { each } from "../js/utils.js";
 
 export class Base {
   #parent = null;
@@ -248,7 +247,7 @@ export class Tank extends Move {
     this.x += (BOX_SIZE * 2 - TANK_SIZE) / 2;
     this.y += (BOX_SIZE * 2 - TANK_SIZE) / 2;
     this.destoryProps = {
-      img: imgs.destory,
+      // img: imgs.destory,
       frames: [0, 1, 2, 3, 2, 1, 3, 1, 3, 1, 0],
       interval: 1,
       size: 66,

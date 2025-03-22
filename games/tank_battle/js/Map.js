@@ -7,13 +7,20 @@ import {
   Player,
   Enemy,
   Wall,
-} from "./klass.js";
+} from "../lib/klass.js";
+
 import { maps } from "./maps.js";
 
 export default class Map extends Group {
-  constructor({ round = 1, totalTankNum = 20 } = {}, imgs) {
+  constructor({ round = 1, totalTankNum = 20 } = {}, loader) {
     super();
-    this.imgs = imgs;
+    this.imgs = loader.imgs;
+    this.createManyLayer();
+    const map = maps[round];
+    this.createBoard(map);
+    this.createPlayer();
+  }
+  createManyLayer() {
     this.grassArray = new Group();
     this.wallArray = new Group();
     this.waterArray = new Group();
@@ -33,24 +40,6 @@ export default class Map extends Group {
       this.bulletArray,
       this.steelArray
     );
-
-    this.playerArray.add(
-      new Player(
-        8,
-        24,
-        imgs.p1,
-        {
-          up: "w",
-          right: "d",
-          down: "s",
-          left: "a",
-          fire: " ",
-        },
-        "1p"
-      )
-    );
-    const map = maps[round];
-    this.createBoard(map);
   }
   createBoard(map) {
     for (var y = 0; y < map.length; y++) {
@@ -79,5 +68,22 @@ export default class Map extends Group {
         }
       }
     }
+  }
+  createPlayer() {
+    this.playerArray.add(
+      new Player(
+        8,
+        24,
+        this.imgs.p1,
+        {
+          up: "w",
+          right: "d",
+          down: "s",
+          left: "a",
+          fire: " ",
+        },
+        "1p"
+      )
+    );
   }
 }

@@ -1,4 +1,4 @@
-import { Group, Text } from "./klass.js";
+import { Group, Text } from "../lib/klass.js";
 
 export default class Loading extends Group {
   constructor() {
