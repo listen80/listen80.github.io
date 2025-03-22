@@ -1,13 +1,13 @@
 // engine
-import Controller from "./Controller.js";
-import Canvas from "./canvas.js";
-import Loader from "./Loader.js";
+import Controller from "../lib/Controller.js";
+import Canvas from "../lib/Canvas.js";
+import Loader from "../lib/Loader.js";
 import { Group } from "../lib/klass.js";
 // scene
-import Loading from "./Loading.js";
+import Loading from "../ui/Loading.js";
 import Map from "./Map.js";
-import Title from "./Title.js";
-import Level from "./Level.js";
+import Title from "../ui/Title.js";
+import Level from "../ui/Level.js";
 
 class Game extends Group {
   constructor() {

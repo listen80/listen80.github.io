@@ -1,4 +1,4 @@
-import { width, height } from "./size.js";
+import { width, height } from "../js/size.js";
 
 export default class Canvas {
   constructor() {
