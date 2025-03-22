@@ -2,10 +2,10 @@
 import Controller from "../lib/Controller.js";
 import Canvas from "../lib/Canvas.js";
 import Loader from "../lib/Loader.js";
-import { Group } from "../lib/klass.js";
+import { Group, Text } from "../lib/Base.js";
 // scene
 import Loading from "../ui/Loading.js";
-import Map from "./Map.js";
+import Map from "../ui/Map.js";
 import Title from "../ui/Title.js";
 import Level from "../ui/Level.js";
 

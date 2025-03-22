@@ -1,17 +1,5 @@
 import { BOX_SIZE, TANK_SIZE } from "../js/size.js";
-import { each } from "../js/utils.js";
-import { Base } from "./Base.js";
-
-export class Text extends Base {
-  constructor(pos, text) {
-    super(pos);
-    this.text = text;
-  }
-  draw(ctx) {
-    ctx.fillStyle = "red";
-    ctx.fillText(this.text, this.x, this.y);
-  }
-}
+import { Base, Group, Text, Spirit } from "../lib/Base.js";
 
 export class Grass extends Spirit {
   constructor(x, y, imgs) {
@@ -95,8 +83,8 @@ export class Move extends Spirit {
   }
   handleObstacle(next, dir, i) {
     var self = this;
-    each(this.ObstacleArray, function (arr) {
-      each(arr, function (target, index) {
+    this.ObstacleArray.forEach(function (arr) {
+      this.arr.forEach(function (target, index) {
         if (
           self === target ||
           (self.hasDestoryAbility &&
@@ -191,64 +179,56 @@ export class Tank extends Move {
   }
 }
 
-export class Player extends Tank {
-  constructor(x, y, img, keys, name) {
-    super(x, y, img);
-
-    this.keys = keys;
-    this.face = this.keys.up;
-    // this.fatherArray = PlayerArray;
-    this.isMy = true;
-    this.name = name;
-  }
-  keydown(e) {
-    var keys = this.keys;
-    var key = e.key;
-    switch (key) {
+export class Bullet extends Move {
+  constructor(props) {
+    super(props.x, props.y, BULLET_SIZE, BULLET_SIZE, imgs.bullet);
+    this.baseSpeed = props.baseSpeed * 4;
+    this.canBeDestoried = true;
+    this.hasDestoryAbility = true;
+    this.destoryProps = {
+      img: imgs.blast,
+      frames: [1, 2, 1, 0],
+      interval: 1,
+      size: 32,
+    };
+    // this.fatherArray = BulletArray;
+    this.isMy = props.isMy;
+    var face = (this.face = this.key = props.face);
+    var keys = (this.keys = props.keys);
+    var offset = TANK_SIZE - BULLET_SIZE;
+    this.ObstacleArray = [
+      EnemyArray,
+      PlayerArray,
+      WallArray,
+      BorderArray,
+      SteelArray,
+      BulletArray,
+    ];
+    switch (face) {
       case keys.left:
-      case keys.right:
-      case keys.up:
-      case keys.down:
-        this.key = key;
-        this.face = key;
+        this.y += offset / 2;
         break;
-      case keys.fire:
-        this.fire = true;
-        break;
-    }
-  }
-  keyup(e) {
-    var keys = this.keys;
-    var key = e.key;
-    switch (key) {
-      case keys.left:
       case keys.right:
+        this.x += offset;
+        this.y += offset / 2;
+        break;
       case keys.up:
+        this.x += offset / 2;
+        break;
       case keys.down:
-        if (this.key === key) {
-          this.key = null;
-        }
+        this.x += offset / 2;
+        this.y += offset;
+        break;
     }
   }
   step(i) {
-    if (this.fire) {
-      this.fire = false;
-      if (!this.cold) {
-        this.cold = 1 * 30;
-        // BulletArray.push(new Bullet(this));
-        audios.attack.play();
-      }
-    }
-    if (this.cold) {
-      this.cold--;
-    }
     this.move(i);
     // this.draw();
   }
 }
 
 export class Enemy extends Tank {
-  constructor(x, y) {
+  constructor(x, y, imgs) {
     super(x, y, imgs.enemy);
     this.keys = {
       left: "left",
@@ -277,7 +257,7 @@ export class Enemy extends Tank {
       if (!this.cold) {
         this.cold = 1 * 30;
         // BulletArray.push(new Bullet(this));
-        audios.attack.play();
+        // audios.attack.play();
       }
     }
     if (this.cold) {
@@ -325,53 +305,5 @@ export class Boom extends Spirit {
       this.w,
       this.h
     );
-  }
-}
-
-export class Bullet extends Move {
-  constructor(props) {
-    super(props.x, props.y, BULLET_SIZE, BULLET_SIZE, imgs.bullet);
-    this.baseSpeed = props.baseSpeed * 4;
-    this.canBeDestoried = true;
-    this.hasDestoryAbility = true;
-    this.destoryProps = {
-      img: imgs.blast,
-      frames: [1, 2, 1, 0],
-      interval: 1,
-      size: 32,
-    };
-    // this.fatherArray = BulletArray;
-    this.isMy = props.isMy;
-    var face = (this.face = this.key = props.face);
-    var keys = (this.keys = props.keys);
-    var offset = TANK_SIZE - BULLET_SIZE;
-    this.ObstacleArray = [
-      EnemyArray,
-      PlayerArray,
-      WallArray,
-      BorderArray,
-      SteelArray,
-      BulletArray,
-    ];
-    switch (face) {
-      case keys.left:
-        this.y += offset / 2;
-        break;
-      case keys.right:
-        this.x += offset;
-        this.y += offset / 2;
-        break;
-      case keys.up:
-        this.x += offset / 2;
-        break;
-      case keys.down:
-        this.x += offset / 2;
-        this.y += offset;
-        break;
-    }
-  }
-  step(i) {
-    this.move(i);
-    // this.draw();
   }
 }

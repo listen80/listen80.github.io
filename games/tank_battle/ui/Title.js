@@ -1,4 +1,4 @@
-import { Group, Text } from "../lib/klass.js";
+import { Group, Text } from "../lib/Base.js";
 
 export default class Title extends Group {
   constructor(cb) {

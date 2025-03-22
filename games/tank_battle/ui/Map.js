@@ -1,15 +1,8 @@
-import {
-  Grass,
-  Group,
-  Water,
-  Steel,
-  Home,
-  Player,
-  Enemy,
-  Wall,
-} from "../lib/klass.js";
+import { Grass, Water, Steel, Home, Enemy, Wall } from "./ManyUI.js";
+import { Group } from "../lib/Base.js";
+import { maps } from "../js/maps.js";
+import { Player } from "./Player.js";
 
-import { maps } from "./maps.js";
 
 export default class Map extends Group {
   constructor({ round = 1, totalTankNum = 20 } = {}, loader) {
@@ -19,6 +12,7 @@ export default class Map extends Group {
     const map = maps[round];
     this.createBoard(map);
     this.createPlayer();
+    this.createEnemy();
   }
   createManyLayer() {
     this.grassArray = new Group();
@@ -84,6 +78,14 @@ export default class Map extends Group {
         },
         "1p"
       )
+    );
+  }
+  createEnemy() {
+    const { imgs } = this;
+    this.enemyArray.add(
+      new Enemy(0, 0, imgs),
+      new Enemy(12, 0, imgs),
+      new Enemy(24, 0, imgs)
     );
   }
 }

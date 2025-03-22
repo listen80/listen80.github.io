@@ -76,3 +76,20 @@ export class Spirit extends Base {
     ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
   }
 }
+
+export class Text extends Base {
+  constructor(pos, text) {
+    super(pos);
+    this.text = text;
+  }
+  draw(ctx) {
+    ctx.fillStyle = "red";
+    ctx.fillText(this.text, this.x, this.y);
+  }
+}
+
+export class Grass extends Spirit {
+  constructor(x, y, imgs) {
+    super(x * BOX_SIZE, y * BOX_SIZE, BOX_SIZE, BOX_SIZE, imgs.grass);
+  }
+}
