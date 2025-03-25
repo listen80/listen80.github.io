@@ -1,4 +1,5 @@
-import { Tank } from "./ManyUI";
+import { Tank } from "./ManyUI.js";
+
 export class Player extends Tank {
   constructor(x, y, img, keys, name) {
     super(x, y, img);
@@ -38,7 +39,7 @@ export class Player extends Tank {
         }
     }
   }
-  step(i) {
+  openfire() {
     if (this.fire) {
       this.fire = false;
       if (!this.cold) {
@@ -50,7 +51,11 @@ export class Player extends Tank {
     if (this.cold) {
       this.cold--;
     }
-    this.move(i);
+  }
+  step(i) {
+    // console.log($engine.controller)
+    this.openfire();
+    this.move($engine.controller.keyMap);
     // this.draw();
   }
 }

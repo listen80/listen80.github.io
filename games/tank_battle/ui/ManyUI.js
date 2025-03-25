@@ -115,7 +115,7 @@ export class Move extends Spirit {
       }
     }
   }
-  move(i) {
+  move(keyMap) {
     var key = this.key;
     var keys = this.keys;
     var next;

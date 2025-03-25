@@ -36,8 +36,8 @@ export default class Loader {
   loadAudio(audioList, fn) {
     const audios = {};
     for (var i = 0, audioLength = audioList.length; i < audioLength; i++) {
-      var audio = document.createElement("audio");
-      var key = audioList[i];
+      const audio = document.createElement("audio");
+      const key = audioList[i];
       audio.onloadstart = function () {
         i--;
         if (!i) {
@@ -52,8 +52,8 @@ export default class Loader {
   loadImages(imgList, fn) {
     const imgs = {};
     for (var j = 0, imgsLength = imgList.length; j < imgsLength; j++) {
-      var img = new Image();
-      var key = imgList[j];
+      const img = new Image();
+      const key = imgList[j];
       img.onload = function () {
         j--;
         if (!j) {

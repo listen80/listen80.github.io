@@ -3,6 +3,7 @@ import Controller from "../lib/Controller.js";
 import Canvas from "../lib/Canvas.js";
 import Loader from "../lib/Loader.js";
 import { Group, Text } from "../lib/Base.js";
+
 // scene
 import Loading from "../ui/Loading.js";
 import Map from "../ui/Map.js";
@@ -42,7 +43,8 @@ class Game extends Group {
   initBase() {
     this.canvaser = new Canvas();
     this.controller = new Controller();
-
+    this.controller.bind();
+    window.$engine = this;
     this.setRoot(new Loading());
     this.render();
   }
@@ -58,6 +60,7 @@ class Game extends Group {
   render() {
     const render = () => {
       // this.root.emit();
+      this.controller.calc();
       this.root.step(this.controller);
       this.controller.reset();
       this.canvaser.clear();
