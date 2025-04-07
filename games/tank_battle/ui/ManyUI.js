@@ -165,14 +165,7 @@ export class Tank extends Move {
       interval: 1,
       size: 66,
     };
-    this.ObstacleArray = [
-      //   EnemyArray,
-      //   PlayerArray,
-      //   WallArray,
-      //   BorderArray,
-      //   SteelArray,
-      //   WaterArray,
-    ];
+    this.ObstacleArray = [];
     this.canBeDestoried = true;
     this.baseSpeed = 3;
     this.name = "tank";
@@ -196,14 +189,7 @@ export class Bullet extends Move {
     var face = (this.face = this.key = props.face);
     var keys = (this.keys = props.keys);
     var offset = TANK_SIZE - BULLET_SIZE;
-    this.ObstacleArray = [
-      EnemyArray,
-      PlayerArray,
-      WallArray,
-      BorderArray,
-      SteelArray,
-      BulletArray,
-    ];
+    this.ObstacleArray = [];
     switch (face) {
       case keys.left:
         this.y += offset / 2;
@@ -247,6 +233,7 @@ export class Enemy extends Tank {
     this.face = this.key = this.randomKey[(Math.random() * 4) | 0];
   }
   step(i) {
+    return
     this.tick++;
     if (this.tick % this.interval === 0) {
       Math.random() > 0.5 && this.changeDirection();
@@ -263,7 +250,7 @@ export class Enemy extends Tank {
     if (this.cold) {
       this.cold--;
     }
-    this.move(i);
+    // this.move(i);
     // this.draw();
   }
 }

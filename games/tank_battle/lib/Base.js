@@ -11,6 +11,9 @@ export class Base {
     this.#parent = p;
     this.#root = this.#parent.#root;
   }
+  getParent() {
+    return this.#parent;
+  }
   remove() {
     this.#parent.removeChild(this);
   }

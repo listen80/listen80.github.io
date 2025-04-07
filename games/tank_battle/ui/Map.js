@@ -3,7 +3,6 @@ import { Group } from "../lib/Base.js";
 import { maps } from "../js/maps.js";
 import { Player } from "./Player.js";
 
-
 export default class Map extends Group {
   constructor({ round = 1, totalTankNum = 20 } = {}, loader) {
     super();
@@ -63,22 +62,26 @@ export default class Map extends Group {
       }
     }
   }
+  createFire(player) {
+    console.log("createFire", player);
+    // this.bulletArray.add(new Bullet(player));
+  }
   createPlayer() {
-    this.playerArray.add(
-      new Player(
-        8,
-        24,
-        this.imgs.p1,
-        {
-          up: "w",
-          right: "d",
-          down: "s",
-          left: "a",
-          fire: " ",
-        },
-        "1p"
-      )
+    const player = new Player(
+      8,
+      24,
+      this.imgs.p1,
+      {
+        up: "w",
+        right: "d",
+        down: "s",
+        left: "a",
+        fire: " ",
+      },
+      "1p"
     );
+    player.map = this;
+    this.playerArray.add(player);
   }
   createEnemy() {
     const { imgs } = this;

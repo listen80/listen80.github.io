@@ -1,3 +1,4 @@
+import { BOX_SIZE } from "../js/size.js";
 import { Tank } from "./ManyUI.js";
 
 export class Player extends Tank {
@@ -9,6 +10,8 @@ export class Player extends Tank {
     // this.fatherArray = PlayerArray;
     this.isMy = true;
     this.name = name;
+    this.speed = BOX_SIZE;
+    console.log(this);
   }
   keydown(e) {
     var keys = this.keys;
@@ -39,23 +42,34 @@ export class Player extends Tank {
         }
     }
   }
-  openfire() {
-    if (this.fire) {
-      this.fire = false;
-      if (!this.cold) {
-        this.cold = 1 * 30;
-        // BulletArray.push(new Bullet(this));
-        // audios.attack.play();
-      }
+  canFire() {
+    return false;
+  }
+  calcFire() {
+    if (this.calcFire) {
+      this.map.createFire(this);
+      console.log($engine.controller.keyMap);
     }
-    if (this.cold) {
-      this.cold--;
+  }
+  calcMove() {
+    if (this.canMove) {
+      const { up, down, left, right, fire } = $engine.controller.keyMap;
+      if (up) {
+        this.y -= this.speed;
+      }
+      if (down) {
+        this.y += this.speed;
+      }
+      if (left) {
+        this.x -= this.speed;
+      }
+      if (right) {
+        this.x += this.speed;
+      }
     }
   }
   step(i) {
-    // console.log($engine.controller)
-    this.openfire();
-    this.move($engine.controller.keyMap);
-    // this.draw();
+    this.calcFire();
+    this.calcMove();
   }
 }
