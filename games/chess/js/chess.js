@@ -1,4 +1,4 @@
-import value from "./values.js";
+import values from "./values.js";
 import { init_map } from "./map.js";
 import { bylaw } from "./bylaw.js";
 
@@ -94,19 +94,18 @@ function clone2Arr(arr) {
   return a;
 }
 
-function Man({ y, x, my, type, img, key, value }) {
+function Man({ y, x, my, type, img, key }) {
   this.x = x;
   this.y = y;
   this.my = my;
   this.type = type;
   this.img = img;
   this.key = key;
-  this.value;
   this.checked = false;
+  this.values = this.my ? values[this.type] : values[this.type].slice().reverse();
 
-  this.value = this.my ? value[this.type] : value[this.type].slice().reverse();
   this.val = function () {
-    return this.value[this.y][this.x];
+    return this.values[this.y][this.x];
   };
   this.pace = function () {
     return bylaw[this.type](map, this.y, this.x, this.my);
