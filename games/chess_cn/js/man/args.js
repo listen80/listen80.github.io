@@ -1,4 +1,4 @@
-const args = {
+export const args = {
   'c': "车",
   'm': "马",
   'x': "相",

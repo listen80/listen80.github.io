@@ -1,4 +1,4 @@
-const bylaw = {
+export const bylaw = {
   c(x, y, my, map) {
     const d = [];
     for (let i = y - 1; i >= 0; i--) {

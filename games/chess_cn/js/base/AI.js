@@ -1,9 +1,12 @@
-importScripts('args.js', 'values.js', 'bylaw.js', 'man.js');
+import { Man } from "../man/man.js";
 
-this.onmessage = function (e) {
+self.onmessage = function (e) {
+  console.log('in')
   const { map, my = -1, depth = 2, log = false } = e.data;
   const message = `getAlphaBeta depth:${depth}`
-  console.time(message);
+  if (log) {
+    console.time(message);
+  }
   const best = getAlphaBeta(-6666, 6666, depth, map, my, createMansAndEvaluateValue(map, my));
   if (log) {
     console.timeEnd(message);
@@ -11,6 +14,7 @@ this.onmessage = function (e) {
   }
   postMessage(best);
 }
+
 
 const createMansAndEvaluateValue = (map, my) => {
   let value = 0;
