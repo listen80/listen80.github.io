@@ -12,21 +12,6 @@ chess.pic = function () {
   console.log(log);
 }
 
-chess.shadow = function () {
-  for (let y = 0; y < 10; y++) {
-    for (let x = 0; x < 9; x++) {
-      let div = document.createElement('div');
-      div.style.height = skin.size.y + 'px';
-      div.style.width = skin.size.x + 'px';
-      div.style.position = "absolute";
-      div.style.left = skin.offset.x + skin.space.x * x + 'px';
-      div.style.top = skin.offset.y + skin.space.y * y + 'px';
-      div.style.backgroundColor = "rgba(222,22,222,.2)";
-      dom.chess.appendChild(div);
-    }
-  }
-}
-
 chess.move = function (oldX, oldY, newX, newY, my) {
   const man = chess.map[oldY][oldX];
   chess.createMove(oldX, oldY, newX, newY);

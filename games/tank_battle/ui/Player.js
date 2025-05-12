@@ -4,7 +4,6 @@ import { Tank } from "./ManyUI.js";
 export class Player extends Tank {
   constructor(x, y, img, name) {
     super(x, y, img);
-    this.face = this.keys.up;
     this.isMy = true;
     this.name = name;
     this.speed = BOX_SIZE;
@@ -20,8 +19,8 @@ export class Player extends Tank {
     }
   }
   calcMove() {
-    if (this.canMove) {
-      const { up, down, left, right, fire } = $engine.controller.keyMap;
+    if (!this.canMove) {
+      const { up, down, left, right } = $engine.controller.keyMap;
       if (up) {
         this.y -= this.speed;
       }
@@ -36,7 +35,7 @@ export class Player extends Tank {
       }
     }
   }
-  step(i) {
+  step() {
     this.calcFire();
     this.calcMove();
   }
