@@ -2,7 +2,9 @@
 import { DOMMan } from "./DOMMan.js";
 import Chess from "./chess.js";
 
-const chess = new Chess()
+const chess = new Chess({
+  AIlog: true,
+})
 
 const dom = {
   chess: document.getElementById("chess"),

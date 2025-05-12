@@ -3,6 +3,12 @@
 const AIWorker = new Worker("js/base/AI.js", { type: "module" });
 
 class Chess {
+  constructor(config = {}) {
+    this.config = {
+      AIlog: true,
+    };
+    Object.assign(this.config, config);
+  }
   pic() {
     let map = this.map;
     let log = "";
@@ -191,7 +197,8 @@ class Chess {
     this.createMans(cb);
   }
 
-  AIplay(my, depth = 4, log) {
+  AIplay(my, depth = 4) {
+    const log = this.config.AIlog;
     const map = this.getMapKeys();
     AIWorker.postMessage({ my, map, depth, log });
     AIWorker.onmessage = (e) => {
