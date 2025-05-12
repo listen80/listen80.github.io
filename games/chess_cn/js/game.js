@@ -1,6 +1,6 @@
 ﻿import { skin } from "./skins.js";
 import { DOMMan } from "./DOMMan.js";
-import Chess from "./chess.js";
+import Chess from "./Chess.js";
 
 const chess = new Chess({
   AIlog: true,
