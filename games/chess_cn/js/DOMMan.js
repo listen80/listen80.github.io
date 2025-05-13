@@ -32,8 +32,7 @@ export class DOMMan extends Man {
       this.psEL = this.ps.map(([x, y]) => {
         const div = document.createElement("div");
         div.classList.add("ps");
-        div.style.transform = `translate(${skin.offset.x + x * skin.space.x
-          }px, ${skin.offset.y + y * skin.space.y}px)`;
+        div.style.transform = `translate(${skin.offset.x + x * skin.space.x}px, ${skin.offset.y + y * skin.space.y}px)`;
         this.dom.appendChild(div);
         return div;
       });
@@ -48,7 +47,6 @@ export class DOMMan extends Man {
   }
   move(x, y) {
     const { skin } = this;
-    this.div.style.transform = `translate(${skin.offset.x + x * skin.space.x
-      }px, ${skin.offset.y + y * skin.space.y}px)`;
+    this.div.style.transform = `translate(${skin.offset.x + x * skin.space.x}px, ${skin.offset.y + y * skin.space.y}px)`;
   }
 }

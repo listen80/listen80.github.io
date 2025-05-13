@@ -7,7 +7,7 @@ const chess = new Chess({
 })
 
 const dom = {
-  chess: document.getElementById("chess"),
+  container: document.getElementById("container"),
   regret: document.getElementById("regret"),
   restart: document.getElementById("restart"),
   moves: document.getElementById("moves"),
@@ -25,7 +25,7 @@ dom.regret.onclick = function () {
 };
 
 dom.restart.onclick = function () {
-  dom.chess.innerHTML = "";
+  dom.container.innerHTML = "";
   dom.moves.innerHTML = "";
   chess.init();
 };
@@ -43,7 +43,7 @@ function getPosition(event) {
   }
 }
 
-dom.chess.onclick = function (e) {
+dom.container.onclick = function (e) {
   if (!chess.turn || !chess.continuation) return;
   let get = getPosition(e);
   const my = 1;
@@ -72,7 +72,7 @@ dom.chess.onclick = function (e) {
   }
 };
 
-dom.shadow = function () {
+function shadow() {
   for (let y = 0; y < 10; y++) {
     for (let x = 0; x < 9; x++) {
       let div = document.createElement("div");
@@ -82,7 +82,7 @@ dom.shadow = function () {
       div.style.left = skin.offset.x + skin.space.x * x + "px";
       div.style.top = skin.offset.y + skin.space.y * y + "px";
       div.style.backgroundColor = "rgba(222,22,222,.2)";
-      dom.chess.appendChild(div);
+      dom.container.appendChild(div);
     }
   }
 };
@@ -118,9 +118,9 @@ function createBoard() {
     }
     table.appendChild(tr);
   }
-  dom.chess.appendChild(table);
+  dom.container.appendChild(table);
 }
 
 createBoard();
 
-chess.reset((chess, key) => new DOMMan(key, chess, dom.chess, skin));
+chess.reset((chess, key) => new DOMMan(key, chess, dom.container, skin));

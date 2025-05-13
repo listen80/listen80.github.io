@@ -15,7 +15,6 @@ self.onmessage = function (e) {
   postMessage(best);
 }
 
-
 const createMansAndEvaluateValue = (map, my) => {
   let value = 0;
   for (let y = 0; y < 10; y++) {
