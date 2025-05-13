@@ -5,15 +5,18 @@ export class DOMMan extends Man {
     super(key, chess);
     this.chess = chess;
     this.skin = skin;
-    this.domInit(dom);
-  }
-  domInit(dom) {
-    const div = document.createElement("div");
-    div.textContent = this.text;
-    div.classList.add(this.my === 1 ? "red" : "black");
-    this.div = div;
     this.dom = dom;
+    this.domInit();
+  }
+  domInit() {
+    this.div = this.add(this.my === 1 ? "red" : "black", this.text);
+  }
+  add(className, text) {
+    const div = document.createElement("div");
+    div.textContent = text || '';
+    div.classList.add(className);
     this.dom.appendChild(div);
+    return div
   }
   click(x, y) {
     const { skin } = this;
@@ -21,9 +24,7 @@ export class DOMMan extends Man {
       this.div.classList.remove("selected");
       this.ps = [];
       this.poi = null;
-      this.psEL.map((div) => {
-        div.remove();
-      });
+      this.psEL.map((div) => div.remove());
       this.psEL = [];
     } else {
       this.div.classList.add("selected");
@@ -31,9 +32,8 @@ export class DOMMan extends Man {
       this.psEL = this.ps.map(([x, y]) => {
         const div = document.createElement("div");
         div.classList.add("ps");
-        div.style.transform = `translate(${
-          skin.offset.x + x * skin.space.x
-        }px, ${skin.offset.y + y * skin.space.y}px)`;
+        div.style.transform = `translate(${skin.offset.x + x * skin.space.x
+          }px, ${skin.offset.y + y * skin.space.y}px)`;
         this.dom.appendChild(div);
         return div;
       });
@@ -48,8 +48,7 @@ export class DOMMan extends Man {
   }
   move(x, y) {
     const { skin } = this;
-    this.div.style.transform = `translate(${
-      skin.offset.x + x * skin.space.x
-    }px, ${skin.offset.y + y * skin.space.y}px)`;
+    this.div.style.transform = `translate(${skin.offset.x + x * skin.space.x
+      }px, ${skin.offset.y + y * skin.space.y}px)`;
   }
 }
