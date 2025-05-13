@@ -162,7 +162,7 @@ class Chess {
   }
 
   // AI 执行一步棋
-  AIplay(my, depth = 4) {
+  AIplay({ my, depth = 4, cb }) {
     const log = this.config.AIlog;
     const map = this.getMapKeys();
 
@@ -179,6 +179,7 @@ class Chess {
         this.move(x, y, distX, distY, my);
         this.turn = true;
       }
+      cb?.(p);
     };
     AIWorker.postMessage({ my, map, depth, log });
   }

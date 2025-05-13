@@ -63,8 +63,13 @@ dom.container.onclick = function (e) {
         chess.turn = false;
         if (chess.continuation)
           setTimeout(function () {
-            chess.AIplay(-1);
-          }, 111);
+            chess.AIplay({
+              my: -1, cb: (p) => {
+                console.log(p)
+                debugger
+              }
+            });
+          });
       } else {
         // audio.fail.play();
       }
