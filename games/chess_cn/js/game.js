@@ -4,7 +4,9 @@ import Chess from "./Chess.js";
 
 const chess = new Chess({
   AIlog: true,
-})
+});
+
+const game = new Object();
 
 const dom = {
   container: document.getElementById("container"),
@@ -51,23 +53,22 @@ dom.container.onclick = function (e) {
     const { x, y } = get;
     const man = chess.map[y][x];
     if (man && man.my == my) {
-      chess.selected && chess.selected.click(x, y);
-      chess.selected = man;
-      chess.selected.click(x, y);
+      game.selected && game.selected.click(x, y);
+      game.selected = man;
+      game.selected.click(x, y);
       // audio.move.play();
-    } else if (chess.selected) {
-      if (chess.indexOfPs(chess.selected.ps, [get.x, get.y])) {
-        chess.move(chess.selected.poi.x, chess.selected.poi.y, x, y);
-        chess.selected.click();
-        chess.selected = null;
+    } else if (game.selected) {
+      if (chess.indexOfPs(game.selected.ps, [get.x, get.y])) {
+        chess.move(game.selected.poi.x, game.selected.poi.y, x, y);
+        game.selected.click();
+        game.selected = null;
         chess.turn = false;
         if (chess.continuation)
           setTimeout(function () {
             chess.AIplay({
-              my: -1, cb: (p) => {
-                console.log(p)
-                debugger
-              }
+              cb: (p) => {
+                console.log(p);
+              },
             });
           });
       } else {
@@ -76,6 +77,7 @@ dom.container.onclick = function (e) {
     }
   }
 };
+
 
 function shadow() {
   for (let y = 0; y < 10; y++) {
@@ -90,7 +92,7 @@ function shadow() {
       dom.container.appendChild(div);
     }
   }
-};
+}
 
 document.onselectstart = function () {
   return false;
@@ -113,6 +115,18 @@ document.oncontextmenu = (function () {
   };
 })();
 
+function render() {
+  const { map } = chess;
+  for (let y = 0; y < 10; y++) {
+    for (let x = 0; x < 9; x++) {
+      const key = map[y][x];
+      if (key) {
+        console.log(key)
+      }
+    }
+  }
+}
+
 function createBoard() {
   const table = document.createElement("table");
   for (let y = 0; y < 10 - 1; y++) {
@@ -129,3 +143,9 @@ function createBoard() {
 createBoard();
 
 chess.reset((chess, key) => new DOMMan(key, chess, dom.container, skin));
+
+train.onclick = function () {
+  chess.train();
+}
+
+window.chess = chess;

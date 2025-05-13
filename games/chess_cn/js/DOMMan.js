@@ -19,7 +19,7 @@ export class DOMMan extends Man {
   // 创建棋子 DOM 元素并添加到容器中
   add(className, text) {
     const div = document.createElement("div");
-    div.textContent = text || ''; // 设置棋子文本
+    div.textContent = text || ""; // 设置棋子文本
     div.classList.add(className); // 添加样式类
     this.dom.appendChild(div); // 添加到 DOM 容器
     return div;
@@ -30,7 +30,7 @@ export class DOMMan extends Man {
     if (this.div.classList.contains("selected")) {
       this.cancelClick(); // 如果已选中，取消选中状态
     } else {
-      this.confirmClick()
+      this.confirmClick(x, y);
     }
   }
 
@@ -44,7 +44,7 @@ export class DOMMan extends Man {
     this.dom.appendChild(this.div);
   }
 
-  confirmClick() {
+  confirmClick(x, y) {
     // 如果未选中，设置为选中状态
     const { skin } = this;
     this.div.classList.add("selected");
@@ -53,7 +53,9 @@ export class DOMMan extends Man {
       // 为每个可移动位置创建提示元素
       const div = document.createElement("div");
       div.classList.add("ps");
-      div.style.transform = `translate(${skin.offset.x + x * skin.space.x}px, ${skin.offset.y + y * skin.space.y}px)`;
+      div.style.transform = `translate(${skin.offset.x + x * skin.space.x}px, ${
+        skin.offset.y + y * skin.space.y
+      }px)`;
       this.dom.appendChild(div);
       return div;
     });
@@ -75,6 +77,8 @@ export class DOMMan extends Man {
   // 移动棋子到指定位置
   move(x, y) {
     const { skin } = this;
-    this.div.style.transform = `translate(${skin.offset.x + x * skin.space.x}px, ${skin.offset.y + y * skin.space.y}px)`;
+    this.div.style.transform = `translate(${
+      skin.offset.x + x * skin.space.x
+    }px, ${skin.offset.y + y * skin.space.y}px)`;
   }
 }

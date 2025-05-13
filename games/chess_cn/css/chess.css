@@ -11,20 +11,20 @@ body {
     align-items: center;
 }
 
-#chess {
+#container {
     position: relative;
     width: 712px;
     height: 800px;
 }
 
-#chess img {
+#container img {
     position: absolute;
     -webkit-transition: .1s linear;
     transition: .1s linear;
     pointer-events: none;
 }
 
-#chess img.selected {
+#container img.selected {
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
     z-index: 1;
@@ -103,7 +103,7 @@ body {
     color: rgb(22, 123, 127);
 }
 
-#chess>div {
+#container>div {
     width: 66px;
     height: 66px;
     font-size: 40px;
@@ -118,20 +118,20 @@ body {
     border: 3px solid white;
   }
 
-  #chess>div.selected {
+  #container>div.selected {
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
   }
 
-  #chess>.red {
+  #container>.red {
     background-color: red;
   }
 
-  #chess>.black {
+  #container>.black {
     background-color: black;
   }
 
-  #chess>.ps {
+  #container>.ps {
     background-color: rgba(144, 144, 255, .8);
   }
 
