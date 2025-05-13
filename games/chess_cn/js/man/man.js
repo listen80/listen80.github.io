@@ -16,4 +16,11 @@ export class Man {
   bl(x, y, map) {
     return this.bylaw(x, y, this.my, map || this.chess.map);
   }
+  // move(x, y) {
+  //   this.x = x;
+  //   this.y = y;
+  //   const ateMan = this.chess.map[y][x];
+  //   this.chess.map[y][x] = this.key;
+  //   return ateMan
+  // }
 }
