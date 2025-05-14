@@ -19,11 +19,11 @@ const dom = {
 
 dom.regret.onclick = function () {
   chess.regret();
-  if (chess.turn) {
+  if (chess.isMyTurn) {
     chess.regret();
     dom.moves.removeChild(dom.moves.lastChild);
   }
-  chess.turn = true;
+  chess.isMyTurn = true;
 };
 
 dom.restart.onclick = function () {
@@ -46,11 +46,11 @@ function getPosition(event) {
 }
 
 dom.container.onclick = function (e) {
-  if (!chess.ableContinue) {
+  if (!chess.isGaming) {
     alert("游戏结束");
     return;
   }
-  if (!chess.turn) {
+  if (!chess.isMyTurn) {
     alert("请等待对方走棋");
     return;
   }
@@ -70,8 +70,8 @@ dom.container.onclick = function (e) {
         chess.move(game.selected.poi.x, game.selected.poi.y, x, y);
         game.selected.click();
         game.selected = null;
-        chess.turn = false;
-        if (chess.ableContinue)
+        chess.isMyTurn = false;
+        if (chess.isGaming)
           setTimeout(function () {
             chess.AIplay({
               cb: (p) => {

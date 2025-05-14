@@ -17,17 +17,11 @@
 import { Man } from "../man/man.js";
 
 self.onmessage = function (e) {
-  const { map, my = -1, depth = 2, log = false } = e.data;
+  const { map, my = -1, depth = 4, log = false } = e.data;
   const message = `getAlphaBeta depth:${depth}`;
   const start = performance.now();
-  const best = getAlphaBeta(
-    -99999,
-    99999,
-    depth,
-    map,
-    my,
-    createMansAndEvaluateValue(map, my)
-  );
+  const base = createMansAndEvaluateValue(map, my);
+  const best = getAlphaBeta(-9999, 9999, depth, map, my, base);
   const end = performance.now();
   if (log) {
     console.info(end - start, message, best);
@@ -35,6 +29,17 @@ self.onmessage = function (e) {
   postMessage(best);
 };
 
+/**
+ * 根据棋盘初始布局生成棋子对象，并评估当前局面分数。
+ *
+ * @param {Array<Array<string|null>>} map - 棋盘二维数组，元素为棋子字符串或null。
+ * @param {number} my - 当前行动方（1或-1）。
+ * @returns {number} 返回当前局面的基础估值（正数对己方有利，负数对对方有利）。
+ *
+ * 说明：
+ * - 遍历棋盘，将每个棋子字符串替换为Man对象。
+ * - 计算己方与对方棋子的估值差，作为当前局面分数。
+ */
 const createMansAndEvaluateValue = (map, my) => {
   let value = 0;
   for (let y = 0; y < 10; y++) {
@@ -59,8 +64,8 @@ const createMansAndEvaluateValue = (map, my) => {
 /**
  * Alpha-Beta剪枝算法实现中国象棋AI决策。
  *
- * @param {number} A - Alpha值，当前最大可行分数（对己方）。
- * @param {number} B - Beta值，当前最小可行分数（对对方）。
+ * @param {number} Alpha - Alpha值，当前最大可行分数（对己方）。
+ * @param {number} Beta - Beta值，当前最小可行分数（对对方）。
  * @param {number} depth - 搜索深度，递归终止条件。
  * @param {Array<Array<Object|null>>} map - 当前棋盘二维数组（棋子对象或null）。
  * @param {number} my - 当前行动方（1或-1）。
@@ -73,13 +78,13 @@ const createMansAndEvaluateValue = (map, my) => {
  *   - {number} value - 该走法的估值
  *   若无可走步则返回null。
  */
-const getAlphaBeta = (A, B, depth, map, my, base) => {
+const getAlphaBeta = (Alpha, Beta, depth, map, my, base) => {
   if (depth === 0) {
     // 递归终止，返回当前局面估值
     return { value: base };
   }
   let resolve = null;
-  let value = A;
+  let value = Alpha;
   for (let y = 0; y < 10; y++) {
     for (let x = 0; x < 9; x++) {
       const man = map[y][x];
@@ -104,8 +109,8 @@ const getAlphaBeta = (A, B, depth, map, my, base) => {
             (clearedMan ? clearedMan.value[distY][distX] : 0);
           // 递归搜索对方应对
           const best = getAlphaBeta(
-            -B,
-            -A,
+            -Beta,
+            -Alpha,
             depth - 1,
             map,
             -my,
@@ -118,15 +123,15 @@ const getAlphaBeta = (A, B, depth, map, my, base) => {
             value = -best.value;
           } else {
             // 对手无路可走，己方胜利
-            value = B;
+            value = Beta;
             return { x, y, distX, distY, value };
           }
-          if (value >= B) {
+          if (value >= Beta) {
             // Beta剪枝，已找到比对方预期更优的走法
             return { x, y, distX, distY, value };
-          } else if (value > A) {
+          } else if (value > Alpha) {
             // 更新当前最佳分数与走法
-            A = value;
+            Alpha = value;
             resolve = { x, y, distX, distY, value };
           }
         }

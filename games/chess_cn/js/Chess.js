@@ -4,15 +4,17 @@ import { cache } from "./base/cache.js";
 const AIWorker = new Worker("js/base/AI.js", { type: "module" });
 
 const AIMapJSON = {
-  ...cache,
-  ...JSON.parse(localStorage.getItem("AIMapJSON") || "{}"),
+  // ...cache,
+  // ...JSON.parse(localStorage.getItem("AIMapJSON") || "{}"),
 };
 
+// 如果缓存有数据，打印缓存信息
 if (Object.keys(AIMapJSON).length > 0) {
   console.log("cache数据已加载", Object.keys(cache).length);
   console.log("AI缓存数据已加载", Object.keys(AIMapJSON).length);
 }
 
+// 棋类主类
 class Chess {
   constructor(config = {}) {
     // 初始化配置，默认启用 AI 日志
@@ -64,7 +66,7 @@ class Chess {
 
   // 游戏胜利逻辑
   win() {
-    this.ableContinue = false;
+    this.isGaming = false;
     setTimeout(() => {
       console.warn("win");
     }, 1000);
@@ -72,7 +74,7 @@ class Chess {
 
   // 游戏失败逻辑
   lose() {
-    this.ableContinue = false;
+    this.isGaming = false;
     setTimeout(() => {
       console.warn("lose");
     }, 1000);
@@ -105,13 +107,13 @@ class Chess {
     const clearedManKeyArr = this.clearedManKeyArr.pop();
     this.map[newY][newX] = clearedManKeyArr;
     if (clearedManKeyArr) this.mans[clearedManKeyArr].show();
+    this.isGaming = true;
 
-    this.ableContinue = true;
     this.delMove();
     return true;
   }
 
-  // 创建棋子的移动记录
+  // 创建棋子的移动记录（中文描述）
   createMoveText(x, y, newX, newY) {
     const man = this.map[y][x];
     let text = man.text;
@@ -192,12 +194,38 @@ class Chess {
   // 重置游戏状态
   reset(cb) {
     this.selectedMan = null; // 当前选中的棋子
-    this.turn = true; // 当前回合，true 表示白棋
-    this.ableContinue = true; // 游戏是否继续
-    this.map = getDefaultMap(); // 初始化棋盘
+    this.isMyTurn = true; // 当前回合，true 表示白棋
+    this.isGaming = true; // 游戏是否继续
     this.paceArr = []; // 步伐记录
+    this.map = getDefaultMap(); // 初始化棋盘
     this.clearedManKeyArr = []; // 清除的棋子记录
     this.createMans(cb); // 创建棋子
+  }
+
+  setGameOver(my) {}
+
+  // AI 走棋后处理
+  afterAI(p, my, map) {
+    if (!p) {
+      my === -1 ? this.win() : this.lose();
+    } else {
+      const { x, y, distX, distY, value } = p;
+      AIMapJSON[map] = `${x}${y}${distX}${distY}`;
+      console.log("新的走法，开始写入缓存");
+      localStorage.setItem("AIMapJSON", JSON.stringify(AIMapJSON));
+      if (value === 99999) {
+        this.move(x, y, distX, distY, my);
+        // 吃掉老将
+        my === -1 ? this.lose() : this.win();
+        return;
+      }
+      if (value <= -9999) {
+        my === -1 ? this.win() : this.lose();
+        return;
+      }
+      this.move(x, y, distX, distY, my);
+      this.isMyTurn = true;
+    }
   }
 
   // AI 执行一步棋
@@ -210,40 +238,20 @@ class Chess {
       console.log("命中缓存", AIMapJSON[map]);
       const [x, y, distX, distY] = AIMapJSON[map].split("").map(Number);
       this.move(x, y, distX, distY, my);
-      this.turn = true;
+      this.isMyTurn = true;
       cb?.({ x, y, distX, distY }, map);
-      return;
     } else {
       console.log("没有命中缓存，开始计算");
       AIWorker.onmessage = (e) => {
         const p = e.data;
-
-        if (!p) {
-          my === -1 ? this.win() : this.lose();
-        } else {
-          const { x, y, distX, distY, value } = p;
-          AIMapJSON[map] = `${x}${y}${distX}${distY}`;
-          console.log("新的走法，开始写入缓存");
-          localStorage.setItem("AIMapJSON", JSON.stringify(AIMapJSON));
-          if (value === 99999) {
-            this.move(x, y, distX, distY, my);
-            // 吃掉老将
-            return this.lose();
-          }
-          if (value <= -9999) {
-            my === -1 ? this.win() : this.lose();
-            return;
-          }
-          this.move(x, y, distX, distY, my);
-          this.turn = true;
-        }
-
+        this.afterAI(p, my, map);
         cb?.(p, map);
       };
       AIWorker.postMessage({ my, map, depth, log });
     }
   }
 
+  // 训练 AI，自动走棋并缓存
   train(depth = 6) {
     // 训练 AI，深度为 6
     // const AIMapJSON = {};
@@ -270,7 +278,7 @@ class Chess {
         },
       });
     };
-    train(this.turn ? 1 : -1);
+    train(this.isMyTurn ? 1 : -1);
   }
 }
 
