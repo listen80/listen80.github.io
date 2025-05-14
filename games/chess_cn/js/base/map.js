@@ -25,16 +25,16 @@ export const initMap2 = [
 ];
 
 export const initMap3 = [
-  ["Z2", "M0"],
+  [, , , , "J"],
   [""],
   [],
   ["Z0"],
   [],
   [],
-  ["z0"],
-  [, "p0"],
+  ["z0", , "c0", , "c1", , "z3", , "z4"],
   [],
   [],
+  [, , , , "j", "s1", "x1", "m1", ],
 ];
 
 export function clone(obj) {
@@ -42,5 +42,5 @@ export function clone(obj) {
 }
 
 export const getDefaultMap = () => {
-  return clone(initMap);
+  return clone(initMap3);
 };

@@ -40,8 +40,10 @@ body {
     bottom: 3px;
 }
 
-#regret,
-#restart {
+.btn-group {
+    text-align: center;
+}
+.btn {
     display: inline-block;
     color: rgb(23, 32, 233);
     background-color: white;
@@ -102,6 +104,9 @@ body {
 #moves li.black {
     color: rgb(22, 123, 127);
 }
+#container {
+    background-color: #ddd;
+}
 
 #container>div {
     width: 66px;
@@ -138,11 +143,11 @@ body {
   table {
     position: absolute;
     border-collapse: collapse;
-    z-index: -1;
     left: 36px;
     top: 36px;
     width: 641px;
     height: 721px;
+    pointer-events: none;
   }
 
   td {

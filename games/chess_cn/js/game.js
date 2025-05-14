@@ -10,7 +10,7 @@ const game = new Object();
 
 const dom = {
   container: document.getElementById("container"),
-  regret: document.getElementById("regret"),
+  regret: document.getElementById("undo"),
   restart: document.getElementById("restart"),
   moves: document.getElementById("moves"),
   loading: document.getElementById("loading"),
@@ -46,7 +46,15 @@ function getPosition(event) {
 }
 
 dom.container.onclick = function (e) {
-  if (!chess.turn || !chess.continuation) return;
+  if (!chess.ableContinue) {
+    alert("游戏结束");
+    return;
+  }
+  if (!chess.turn) {
+    alert("请等待对方走棋");
+    return;
+  }
+
   let get = getPosition(e);
   const my = 1;
   if (get) {
@@ -63,7 +71,7 @@ dom.container.onclick = function (e) {
         game.selected.click();
         game.selected = null;
         chess.turn = false;
-        if (chess.continuation)
+        if (chess.ableContinue)
           setTimeout(function () {
             chess.AIplay({
               cb: (p) => {
@@ -77,7 +85,6 @@ dom.container.onclick = function (e) {
     }
   }
 };
-
 
 function shadow() {
   for (let y = 0; y < 10; y++) {
@@ -121,7 +128,7 @@ function render() {
     for (let x = 0; x < 9; x++) {
       const key = map[y][x];
       if (key) {
-        console.log(key)
+        console.log(key);
       }
     }
   }
@@ -146,6 +153,6 @@ chess.reset((chess, key) => new DOMMan(key, chess, dom.container, skin));
 
 train.onclick = function () {
   chess.train();
-}
+};
 
 window.chess = chess;
