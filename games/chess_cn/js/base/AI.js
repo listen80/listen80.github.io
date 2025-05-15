@@ -104,9 +104,9 @@ const getAlphaBeta = (Alpha, Beta, depth, map, my, base) => {
           map[y][x] = null;
           // 计算局面变化分数
           const delta =
-            man.value[distY][distX] -
-            man.value[y][x] +
-            (clearedMan ? clearedMan.value[distY][distX] : 0);
+            man.val(distY, distX) -
+            man.val(y, x) +
+            (clearedMan ? clearedMan.val(distY, distX) : 0);
           // 递归搜索对方应对
           const best = getAlphaBeta(
             -Beta,

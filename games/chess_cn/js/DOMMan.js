@@ -49,7 +49,7 @@ export class DOMMan extends Man {
     const { skin } = this;
     this.div.classList.add("selected");
     this.ps = this.bl(x, y, this.chess.map); // 获取可移动位置
-    this.psEL = this.ps.map(([x, y]) => {
+    this.psElement = this.ps.map(([x, y]) => {
       // 为每个可移动位置创建提示元素
       const div = document.createElement("div");
       div.classList.add("ps");
@@ -66,8 +66,8 @@ export class DOMMan extends Man {
     this.div.classList.remove("selected");
     this.ps = []; // 清空可移动位置
     this.poi = null; // 清空当前坐标
-    this.psEL.map((div) => div.remove()); // 移除提示元素
-    this.psEL = [];
+    this.psElement.map((div) => div.remove()); // 移除提示元素
+    this.psElement = [];
   }
 
   showAbleBylawer() {
@@ -80,5 +80,8 @@ export class DOMMan extends Man {
     this.div.style.transform = `translate(${
       skin.offset.x + x * skin.space.x
     }px, ${skin.offset.y + y * skin.space.y}px)`;
+  }
+  destory() {
+    this.dom.removeChild(this.div); // 移除棋子 DOM 元素
   }
 }
