@@ -8,21 +8,20 @@ export class DOMMan extends Man {
     this.skin = skin; // 棋盘皮肤配置
     this.dom = dom; // DOM 容器
     this.ps = []; // 可移动位置数组
-    this.domInit(); // 初始化 DOM 元素
+    this.create(); // 初始化 DOM 元素
   }
 
   // 初始化棋子的 DOM 表现
-  domInit() {
-    this.div = this.add(this.my === 1 ? "red" : "black", this.text); // 根据阵营设置样式
+  create() {
+    const div = document.createElement("div");
+    div.textContent = this.text || ""; // 设置棋子文本
+    div.classList.add(this.my === 1 ? "red" : "black"); // 添加样式类
+    this.div = div; // 根据阵营设置样式
+    this.dom.appendChild(div); // 添加到 DOM 容器
   }
 
-  // 创建棋子 DOM 元素并添加到容器中
-  add(className, text) {
-    const div = document.createElement("div");
-    div.textContent = text || ""; // 设置棋子文本
-    div.classList.add(className); // 添加样式类
-    this.dom.appendChild(div); // 添加到 DOM 容器
-    return div;
+  destory() {
+    this.dom.removeChild(this.div); // 移除棋子 DOM 元素
   }
 
   // 点击棋子时的逻辑
@@ -46,28 +45,25 @@ export class DOMMan extends Man {
 
   confirmClick(x, y) {
     // 如果未选中，设置为选中状态
-    const { skin } = this;
     this.div.classList.add("selected");
+    this.poi = { x, y }; // 设置当前坐标
     this.ps = this.bl(x, y, this.chess.map); // 获取可移动位置
     this.psElement = this.ps.map(([x, y]) => {
       // 为每个可移动位置创建提示元素
       const div = document.createElement("div");
       div.classList.add("ps");
-      div.style.transform = `translate(${skin.offset.x + x * skin.space.x}px, ${
-        skin.offset.y + y * skin.space.y
-      }px)`;
+      this.move(x, y);
       this.dom.appendChild(div);
       return div;
     });
-    this.poi = { x, y }; // 设置当前坐标
   }
 
   cancelClick() {
     this.div.classList.remove("selected");
-    this.ps = []; // 清空可移动位置
     this.poi = null; // 清空当前坐标
-    this.psElement.map((div) => div.remove()); // 移除提示元素
-    this.psElement = [];
+    this.ps = []; // 清空可移动位置
+    this.psElement.forEach((div) => div.remove()); // 移除提示元素
+    this.psElement.splice(0, this.psElement.length);
   }
 
   showAbleBylawer() {
@@ -80,8 +76,5 @@ export class DOMMan extends Man {
     this.div.style.transform = `translate(${
       skin.offset.x + x * skin.space.x
     }px, ${skin.offset.y + y * skin.space.y}px)`;
-  }
-  destory() {
-    this.dom.removeChild(this.div); // 移除棋子 DOM 元素
   }
 }
