@@ -16,7 +16,8 @@
 
 import { Man } from "../man/man.js";
 
-self.onmessage = function (e) {
+// 使用箭头函数简化代码
+self.onmessage = (e) => {
   const { map, my = -1, depth = 4, log = false } = e.data;
   const message = `getAlphaBeta depth:${depth}`;
   const start = performance.now();
@@ -42,19 +43,16 @@ self.onmessage = function (e) {
  */
 const createMansAndEvaluateValue = (map, my) => {
   let value = 0;
-  for (let y = 0; y < 10; y++) {
-    for (let x = 0; x < 9; x++) {
-      let key = map[y][x];
+  // 提前存储棋盘尺寸，避免每次循环都计算
+  const rows = 10;
+  const cols = 9;
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+      const key = map[y][x];
       if (key) {
         const man = new Man(key);
         map[y][x] = man;
-        if (man.my === my) {
-          value += man.value[y][x];
-        } else {
-          value -= man.value[y][x];
-        }
-      } else {
-        map[y][x] = null;
+        value += man.my === my ? man.value[y][x] : -man.value[y][x];
       }
     }
   }
@@ -85,15 +83,17 @@ const getAlphaBeta = (Alpha, Beta, depth, map, my, base) => {
   }
   let resolve = null;
   let value = Alpha;
-  for (let y = 0; y < 10; y++) {
-    for (let x = 0; x < 9; x++) {
+  const rows = 10;
+  const cols = 9;
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
       const man = map[y][x];
       if (man && man.my === my) {
-        // 遍历己方所有棋子
-        const moves = man.bl(x, y, map); // 生成所有可走步
-        for (let i = 0, len = moves.length; i < len; i++) {
-          const move = moves[i];
-          const [distX, distY] = move;
+        const moves = man.bl(x, y, map);
+        // 提前存储移动步数长度，避免每次循环都计算
+        const movesLength = moves.length;
+        for (let i = 0; i < movesLength; i++) {
+          const [distX, distY] = moves[i];
           const clearedMan = map[distY][distX];
           if (clearedMan && clearedMan.lowPater === "j") {
             // 吃掉对方将/帅，直接胜利
