@@ -10,9 +10,6 @@
 //
 // 主要导出：无（作为Web Worker使用，通过postMessage返回结果）
 //
-// 作者：listen80
-// 日期：2025-05-14
-//
 
 import { Man } from "../man/man.js";
 
@@ -95,18 +92,22 @@ const getAlphaBeta = (Alpha, Beta, depth, map, my, base) => {
         for (let i = 0; i < movesLength; i++) {
           const [distX, distY] = moves[i];
           const clearedMan = map[distY][distX];
-          if (clearedMan && clearedMan.lowPater === "j") {
+          const clearedManValue = clearedMan ? clearedMan.value[distY][distX] : 0
+          if (clearedManValue === 99999) {
             // 吃掉对方将/帅，直接胜利
-            return { x, y, distX, distY, value: 99999 };
+            value = clearedManValue
+            return { x, y, distX, distY, value };
           }
           // 执行走法
           map[distY][distX] = map[y][x];
           map[y][x] = null;
+
           // 计算局面变化分数
           const delta =
-            man.val(distY, distX) -
-            man.val(y, x) +
-            (clearedMan ? clearedMan.val(distY, distX) : 0);
+            man.value[distY][distX] -
+            man.value[y][x] +
+            clearedManValue;
+
           // 递归搜索对方应对
           const best = getAlphaBeta(
             -Beta,
@@ -116,18 +117,23 @@ const getAlphaBeta = (Alpha, Beta, depth, map, my, base) => {
             -my,
             -(base + delta)
           );
+
           // 撤销走法
           map[y][x] = map[distY][distX];
           map[distY][distX] = clearedMan;
+
+
           if (best) {
             value = -best.value;
           } else {
-            // 对手无路可走，己方胜利
+            // 1. 对手无路可走(最开始层级)
+            // 2. 没有超过 -Beta的招法(中间计算)
+            // 己方胜利
             value = Beta;
             return { x, y, distX, distY, value };
           }
           if (value >= Beta) {
-            // Beta剪枝，已找到比对方预期更优的走法
+            // Beta剪枝，已找到比对方预期更优的走法，
             return { x, y, distX, distY, value };
           } else if (value > Alpha) {
             // 更新当前最佳分数与走法
@@ -140,3 +146,4 @@ const getAlphaBeta = (Alpha, Beta, depth, map, my, base) => {
   }
   return resolve;
 };
+// Alpha = 100 => -* - -100 // -50

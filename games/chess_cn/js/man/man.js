@@ -45,6 +45,7 @@ export class Man {
       this.value = this.value.slice().reverse();
     }
     this.bylaw = bylaw[this.lowPater];
+    // 棋子不要存储x,y
   }
   bl(x, y, map) {
     return this.bylaw(x, y, this.my, map || this.chess.map);

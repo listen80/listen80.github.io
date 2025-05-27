@@ -27,6 +27,7 @@ const dom = {
 // 提取悔棋逻辑到一个函数中，提高代码可读性和可维护性
 const handleRegret = () => {
   chess.regret();
+  dom.moves.removeChild(dom.moves.lastChild);
   if (chess.isMyTurn) {
     chess.regret();
     if (dom.moves.lastChild) {
