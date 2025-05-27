@@ -1,4 +1,4 @@
-﻿import { skin } from "./skins.js";
+import { skin } from "./skins.js";
 import { DOMMan } from "./DOMMan.js";
 import Chess from "./Chess.js";
 
@@ -19,6 +19,7 @@ const dom = {
 
 dom.regret.onclick = function () {
   chess.regret();
+  dom.moves.removeChild(dom.moves.lastChild);
   if (chess.isMyTurn) {
     chess.regret();
     dom.moves.removeChild(dom.moves.lastChild);

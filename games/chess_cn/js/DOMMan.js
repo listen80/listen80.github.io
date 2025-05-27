@@ -76,6 +76,7 @@ export class DOMMan extends Man {
 
   // 移动棋子到指定位置
   move(x, y) {
+    debugger
     const { skin } = this;
     this.div.style.transform = `translate(${
       skin.offset.x + x * skin.space.x

@@ -185,7 +185,7 @@ class Chess {
         if (key) {
           const man = cb(this, key);
           map[y][x] = man;
-          man.move(x, y);
+          // man.move(x, y);
         }
       }
     }
@@ -193,11 +193,11 @@ class Chess {
 
   // 重置游戏状态
   reset(cb) {
-    this.selectedMan = null; // 当前选中的棋子
-    this.isMyTurn = true; // 当前回合，true 表示白棋
-    this.isGaming = true; // 游戏是否继续
-    this.paceArr = []; // 步伐记录
     this.map = getDefaultMap(); // 初始化棋盘
+    this.selectedMan = null; // 当前选中的棋子
+    this.isMyTurn = true; // 当前回合，true 表示红棋
+    this.isGaming = true; // 游戏是否继续 被将死 五路可走了
+    this.paceArr = []; // 步伐记录
     this.clearedManKeyArr = []; // 清除的棋子记录
     this.createMans(cb); // 创建棋子
   }

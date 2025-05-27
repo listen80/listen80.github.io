@@ -45,6 +45,7 @@ export class Man {
       this.value = this.value.slice().reverse();
     }
     this.bylaw = bylaw[this.lowPater];
+    // 棋子不要存储x,y
   }
   bl(x, y, map) {
     return this.bylaw(x, y, this.my, map || this.chess.map);
@@ -52,11 +53,4 @@ export class Man {
   val(x, y) {
     return this.value[y][x];
   }
-  // move(x, y) {
-  //   this.x = x;
-  //   this.y = y;
-  //   const ateMan = this.chess.map[y][x];
-  //   this.chess.map[y][x] = this.key;
-  //   return ateMan
-  // }
 }
