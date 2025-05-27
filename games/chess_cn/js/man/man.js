@@ -52,11 +52,4 @@ export class Man {
   val(x, y) {
     return this.value[y][x];
   }
-  // move(x, y) {
-  //   this.x = x;
-  //   this.y = y;
-  //   const ateMan = this.chess.map[y][x];
-  //   this.chess.map[y][x] = this.key;
-  //   return ateMan
-  // }
 }
