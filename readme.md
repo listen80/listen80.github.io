@@ -36,7 +36,8 @@
 ## 插件
 
 ### Chrome 浏览器插件
-[Chrome Json格式化工具](https://listen80.github.io/my-chrome-tools/)  
+[my-chrome-tools](https://listen80.github.io/my-chrome-tools/)  
+Chrome Json格式化 cookie展示 搜索增强
 
 ### Sublime 插件
 [ArriveFile](https://listen80.github.io/ArriveFile/)  
