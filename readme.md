@@ -30,7 +30,7 @@
 <!-- 97 -->
 
 #### JSX 游戏 - 勇者斗恶龙
-[jsx-game-mota](https://listen80.github.io/jsx-game-mota/)  
+[jsx-game-mota](https://listen80.github.io/jsx-game-canvas/)  
 <!-- 98 -->
 
 ## 插件
