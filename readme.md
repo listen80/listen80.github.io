@@ -14,7 +14,7 @@
 <!-- 93 -->
 
 #### JavaScript 库 UI 组件
-[myQueryUI](https://listen80.github.io/myQueryUI/)  
+[myQueryUI](https://listen80.github.io/myQuery-ui/)  
 <!-- 94 -->
 
 #### React 扩展工具
