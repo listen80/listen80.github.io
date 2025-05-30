@@ -4,7 +4,7 @@
   "description": "[listen-template](https://listen80.github.io/listen-template/)  \r <!-- 91 -->\r #### 代码高亮工具\r [code-view](https://listen80.github.io/code-view/)  \r <!-- 92 -->",
   "main": "index.js",
   "scripts": {
-    "start": "http-server -p 80 -c-1",
+    "start": "http-server -p 80 -c-0",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
