@@ -23,11 +23,20 @@
   **Sublime 文件定位插件**：快速定位并打开文件，大幅提高文件查找效率。
 - [vscode extension](http://listen80.github.io/)
   **VSCode 扩展插件**：为编辑器增添额外功能，具体功能依实际开发而定。
-## CI/CD
+## 构建
 - [compressed-string-loader](http://listen80.github.io/compressed-string-loader)
   **Webpack 加载器插件**：压缩字符串资源，有效减少文件体积。
 - [webpack-uploadfiles-plugin](http://listen80.github.io/webpack-uploadfiles-plugin)
   **Webpack 自动上传插件**：构建完成后自动将文件上传至指定服务器。
+## 项目
+- [personal-introduction](https://listen80.github.io/personal-introduction/)
+  **个人简介项目**：用于展示个人信息、经历和技能等内容。
+- [function-line](https://listen80.github.io/function-line/)
+  **功能线路项目**：具体功能依实际开发而定。
+- [pokers-lottery](https://listen80.github.io/pokers-lottery/)
+  **扑克抽奖项目**：基于扑克元素实现抽奖功能。
+- [webssh](https://listen80.github.io/webssh/)
+  **Web SSH 项目**：通过网页实现 SSH 连接功能。
 ## 小游戏
 - [中国象棋](https://listen80.github.io/small-game/games/chinese_chess/)
   **经典中国象棋**：原汁原味还原传统棋类玩法，体验古老智慧对决。
@@ -45,7 +54,6 @@
   **经典俄罗斯方块**：考验反应和布局能力，享受拼接方块的乐趣。
 - [扫雷](https://listen80.github.io/small-game/games/mine_sweeping/)
   **经典扫雷游戏**：依据提示排除地雷，感受紧张刺激的解谜过程。
-
 ## 小工具
 - [HTTP Status](https://listen80.github.io/smaill-tools/tools/http_code.html)
   **HTTP 状态码查询工具**：方便开发人员快速查询状态码含义。
