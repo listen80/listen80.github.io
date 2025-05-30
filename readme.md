@@ -21,8 +21,6 @@
   **Chrome 多功能插件**：支持 Json 格式化、cookie 展示及搜索功能增强，提升浏览器使用效率。
 - [ArriveFile](https://listen80.github.io/ArriveFile/)
   **Sublime 文件定位插件**：快速定位并打开文件，大幅提高文件查找效率。
-- [vscode extension](http://listen80.github.io/)
-  **VSCode 扩展插件**：为编辑器增添额外功能，具体功能依实际开发而定。
 ## 构建
 - [compressed-string-loader](http://listen80.github.io/compressed-string-loader)
   **Webpack 加载器插件**：压缩字符串资源，有效减少文件体积。
