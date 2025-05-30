@@ -12,7 +12,7 @@
   **React 扩展工具**：为 React 开发注入便捷功能，全方位增强开发体验。
 - [vue-large-data-tree](https://listen80.github.io/vue-large-data-tree/) <!-- 96 -->
   **Vue 大数据树组件**：专为处理大量数据设计，有效优化大数据量下的性能表现。
-- [myVue](https://listen80.github.io/two-way-bind/) <!-- 97 -->
+- [two-way-bind](https://listen80.github.io/two-way-bind/) <!-- 97 -->
   **Vue 双向绑定框架**：自定义实现双向绑定功能，助力深入理解 Vue 核心原理。
 - [jsx-game-mota](https://listen80.github.io/jsx-game-canvas/) <!-- 98 -->
   **JSX 游戏 - 勇者斗恶龙**：采用 JSX 技术开发，带来沉浸式的勇者斗恶龙风格游戏体验。
@@ -38,21 +38,19 @@
 - [webssh](https://listen80.github.io/webssh/)
   **Web SSH 项目**：通过网页实现 SSH 连接功能。
 ## 小游戏
-- [中国象棋](https://listen80.github.io/small-game/games/chinese_chess/)
-  **经典中国象棋**：原汁原味还原传统棋类玩法，体验古老智慧对决。
-- [国际象棋](https://listen80.github.io/small-game/games/chess/)
+- [中国象棋](https://listen80.github.io/small-games/games/chess_cn/)
+  **经典中国象棋**：原汁原味还原传统棋类玩法，体验古老智慧对决，采用 Worker 技术，大幅提升游戏流畅度。
+- [国际象棋](https://listen80.github.io/small-games/games/chess/)
   **标准国际象棋**：遵循国际标准规则，带来专业的棋类对战体验。
-- [五子棋](https://listen80.github.io/small-game/games/gomoku/)
+- [五子棋](https://listen80.github.io/small-games/games/gomoku/)
   **策略五子棋**：简单有趣，考验玩家策略思维和布局能力。
-- [中国象棋 Worker](https://listen80.github.io/small-game/games/chinese_chess/)
-  **性能优化版中国象棋**：采用 Worker 技术，大幅提升游戏流畅度。
-- [坦克大战](https://listen80.github.io/small-game/games/tank_battle/)
+- [坦克大战](https://listen80.github.io/small-games/games/tank_battle/)
   **经典坦克大战**：操控坦克展开激烈战斗，重温童年经典。
-- [男人下百层](https://listen80.github.io/small-game/games/man_down/)
+- [男人下百层](https://listen80.github.io/small-games/games/man_down/)
   **挑战类跳跃游戏**：控制角色向下跳跃躲避障碍，挑战高分极限。
-- [俄罗斯方块](https://listen80.github.io/small-game/games/tetris/)
+- [俄罗斯方块](https://listen80.github.io/small-games/games/tetris/)
   **经典俄罗斯方块**：考验反应和布局能力，享受拼接方块的乐趣。
-- [扫雷](https://listen80.github.io/small-game/games/mine_sweeping/)
+- [扫雷](https://listen80.github.io/small-games/games/mine_sweeping/)
   **经典扫雷游戏**：依据提示排除地雷，感受紧张刺激的解谜过程。
 ## 小工具
 - [HTTP Status](https://listen80.github.io/smaill-tools/tools/http_code.html)
