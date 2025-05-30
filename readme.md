@@ -70,3 +70,14 @@ Chrome Json格式化 cookie展示 搜索增强
 [俄罗斯方块](https://listen80.github.io/small-game/games/tetris/)  
 
 [扫雷](https://listen80.github.io/small-game/games/mine_sweeping/)  
+
+## 工具
+
+- [HTTP Status](https://listen80.github.io/smaill-tools/tools/http_code.html)
+- [ASCII码](https://listen80.github.io/smaill-tools/tools/ascii_code.html)
+- [贷款计算](https://listen80.github.io/smaill-tools/tools/loan.html)
+- [二维码生成](https://listen80.github.io/smaill-tools/tools/qrcode.html)
+- [图转base64](https://listen80.github.io/smaill-tools/tools/base64.html)
+- [简繁转换](https://listen80.github.io/smaill-tools/tools/simple_trandition.html)
+- [MD预览](https://listen80.github.io/smaill-tools/tools/markdown.html)
+
