@@ -1,91 +1,79 @@
 # 学无止境
 
-## 项目
-### HTML 模板引擎工具
+## 轮子
 - [listen-template](https://listen80.github.io/listen-template/) <!-- 91 -->
-一个用于生成 HTML 页面的模板引擎工具，简化 HTML 代码的编写过程。
+  **HTML 模板引擎工具**：简化 HTML 代码编写过程，高效生成 HTML 页面。
 
-### 代码高亮工具
 - [code-view](https://listen80.github.io/code-view/) <!-- 92 -->
-能够对多种编程语言的代码进行高亮显示，方便代码的阅读和审查。
+  **代码高亮工具**：支持多种编程语言代码高亮显示，助力代码阅读与审查。
 
-### JavaScript 库
 - [myQuery](https://listen80.github.io/myQuery/) <!-- 93 -->
-一个封装了常用 JavaScript 操作的库，提高开发效率。
+  **JavaScript 库**：封装常用 JavaScript 操作，显著提升开发效率。
 
-### JavaScript 库 UI 组件
 - [myQueryUI](https://listen80.github.io/myQuery-ui/) <!-- 94 -->
-基于 myQuery 库开发的 UI 组件库，提供丰富的界面组件。
+  **JavaScript 库 UI 组件**：基于 myQuery 库开发，提供丰富多样的界面组件。
 
-### React 扩展工具
 - [react-easyx](https://listen80.github.io/react-easyx/) <!-- 95 -->
-为 React 开发提供便捷功能的扩展工具，增强 React 开发体验。
+  **React 扩展工具**：为 React 开发注入便捷功能，全方位增强开发体验。
 
-### Vue 大数据树组件
 - [vue-large-data-tree](https://listen80.github.io/vue-large-data-tree/) <!-- 96 -->
-专门用于处理大量数据的 Vue 树状组件，优化大数据量下的性能。
+  **Vue 大数据树组件**：专为处理大量数据设计，有效优化大数据量下的性能表现。
 
-### Vue 双向绑定框架
 - [myVue](https://listen80.github.io/two-way-bind/) <!-- 97 -->
-一个自定义实现双向绑定功能的 Vue 框架，帮助理解 Vue 核心原理。
+  **Vue 双向绑定框架**：自定义实现双向绑定功能，助力深入理解 Vue 核心原理。
 
-### JSX 游戏 - 勇者斗恶龙
 - [jsx-game-mota](https://listen80.github.io/jsx-game-canvas/) <!-- 98 -->
-使用 JSX 开发的勇者斗恶龙风格游戏，提供有趣的游戏体验。
+  **JSX 游戏 - 勇者斗恶龙**：采用 JSX 技术开发，带来沉浸式的勇者斗恶龙风格游戏体验。
 
 ## 插件
-### Chrome 浏览器插件
 - [my-chrome-tools](https://listen80.github.io/my-chrome-tools/)
-Chrome Json 格式化、cookie 展示、搜索增强
-一款功能丰富的 Chrome 浏览器插件，可对 Json 进行格式化，展示 cookie 信息，并增强搜索功能。
+  **Chrome 多功能插件**：支持 Json 格式化、cookie 展示及搜索功能增强，提升浏览器使用效率。
 
-### Sublime 插件
 - [ArriveFile](https://listen80.github.io/ArriveFile/)
-一个用于快速定位和打开文件的 Sublime 插件，提高文件查找效率。
+  **Sublime 文件定位插件**：快速定位并打开文件，大幅提高文件查找效率。
 
-### VSCode 扩展插件
 - [vscode extension](http://listen80.github.io/)
-为 VSCode 编辑器提供额外功能的扩展插件，具体功能依实际开发而定。
+  **VSCode 扩展插件**：为编辑器增添额外功能，具体功能依实际开发而定。
 
-### webpack 插件
+## CI/CD
 - [compressed-string-loader](http://listen80.github.io/compressed-string-loader)
-一个 webpack 加载器插件，用于压缩字符串资源，减少文件体积。
+  **Webpack 加载器插件**：压缩字符串资源，有效减少文件体积。
 - [webpack-uploadfiles-plugin](http://listen80.github.io/webpack-uploadfiles-plugin)
-一个 webpack 插件，可在构建完成后自动将文件上传到指定服务器。
+  **Webpack 自动上传插件**：构建完成后自动将文件上传至指定服务器。
 
 ## 游戏
 ### 棋类游戏
 - [中国象棋](https://listen80.github.io/small-game/games/chinese_chess/)
-经典的中国象棋游戏，还原传统棋类玩法。
+  **经典中国象棋**：原汁原味还原传统棋类玩法，体验古老智慧对决。
 - [国际象棋](https://listen80.github.io/small-game/games/chess/)
-流行的国际象棋游戏，提供国际标准的棋类对战体验。
+  **标准国际象棋**：遵循国际标准规则，带来专业的棋类对战体验。
 - [五子棋](https://listen80.github.io/small-game/games/gomoku/)
-简单又有趣的五子棋游戏，考验玩家的策略思维。
+  **策略五子棋**：简单有趣，考验玩家策略思维和布局能力。
 - [中国象棋 Worker](https://listen80.github.io/small-game/games/chinese_chess/)
-采用 Worker 技术优化性能的中国象棋游戏，提升游戏流畅度。
+  **性能优化版中国象棋**：采用 Worker 技术，大幅提升游戏流畅度。
 
 ### 小游戏
 - [坦克大战](https://listen80.github.io/small-game/games/tank_battle/)
-经典的坦克大战小游戏，玩家操控坦克进行战斗。
+  **经典坦克大战**：操控坦克展开激烈战斗，重温童年经典。
 - [男人下百层](https://listen80.github.io/small-game/games/man_down/)
-一款挑战类小游戏，玩家需要控制角色向下跳跃躲避障碍。
+  **挑战类跳跃游戏**：控制角色向下跳跃躲避障碍，挑战高分极限。
 - [俄罗斯方块](https://listen80.github.io/small-game/games/tetris/)
-经典的俄罗斯方块小游戏，考验玩家的反应和布局能力。
+  **经典俄罗斯方块**：考验反应和布局能力，享受拼接方块的乐趣。
 - [扫雷](https://listen80.github.io/small-game/games/mine_sweeping/)
-经典的扫雷小游戏，玩家需要根据提示排除地雷。
+  **经典扫雷游戏**：依据提示排除地雷，感受紧张刺激的解谜过程。
 
-## 工具
+## 小工具
 - [HTTP Status](https://listen80.github.io/smaill-tools/tools/http_code.html)
-一个用于查询 HTTP 状态码信息的工具，方便开发人员了解状态码含义。
+  **HTTP 状态码查询工具**：方便开发人员快速查询状态码含义。
 - [ASCII码](https://listen80.github.io/smaill-tools/tools/ascii_code.html)
-可用于查询和转换 ASCII 码的工具，帮助开发人员处理字符编码。
+  **ASCII 码查询转换工具**：助力开发人员高效处理字符编码。
 - [贷款计算](https://listen80.github.io/smaill-tools/tools/loan.html)
-一款贷款计算工具，能根据输入参数计算贷款相关信息。
+  **贷款计算工具**：根据输入参数精准计算贷款相关信息。
 - [二维码生成](https://listen80.github.io/smaill-tools/tools/qrcode.html)
-可以根据输入内容生成二维码的工具，方便信息分享。
+  **二维码生成器**：根据输入内容快速生成二维码，便于信息分享。
 - [图转base64](https://listen80.github.io/smaill-tools/tools/base64.html)
-将图片转换为 base64 编码的工具，便于在网页中使用。
+  **图片转 base64 工具**：轻松将图片转换为 base64 编码，方便网页使用。
 - [简繁转换](https://listen80.github.io/smaill-tools/tools/simple_trandition.html)
-实现中文简体和繁体相互转换的工具，满足不同场景需求。
+  **中文简繁转换工具**：实现简体与繁体相互转换，满足不同场景需求。
 - [MD预览](https://listen80.github.io/smaill-tools/tools/markdown.html)
-用于预览 Markdown 格式文本的工具，实时查看排版效果。
+  **Markdown 预览工具**：实时预览 Markdown 格式文本排版效果。
