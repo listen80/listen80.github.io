@@ -26,7 +26,7 @@
 <!-- 96 -->
 
 #### 自定义 Vue 框架
-[myVue](https://listen80.github.io/myVue/)  
+[myVue](https://listen80.github.io/two-way-bind/)  
 <!-- 97 -->
 
 #### JSX 游戏 - 勇者斗恶龙
@@ -56,7 +56,7 @@ Chrome Json格式化 cookie展示 搜索增强
 
 [中国象棋 Worker](https://listen80.github.io/games/chinese_chess/)  
 
-#### 其他类型游戏
+#### 小游戏
 [坦克大战](https://listen80.github.io/games/tank_battle/)  
 
 [男人下百层](https://listen80.github.io/games/man_down/)  
