@@ -45,22 +45,28 @@ Chrome Json格式化 cookie展示 搜索增强
 #### VSCode 扩展插件
 [vscode extension](http://listen80.github.io/)  
 
+#### webpack 插件
+[compressed-string-loader](http://listen80.github.io/compressed-string-loader)  
+[webpack-uploadfiles-plugin](http://listen80.github.io/webpack-uploadfiles-plugin)  
+
+
+
 ## 游戏
 
 #### 棋类游戏
-[中国象棋](https://listen80.github.io/games/chinese_chess/)  
+[中国象棋](https://listen80.github.io/small-game/games/chinese_chess/)  
 
-[国际象棋](https://listen80.github.io/games/chess/)  
+[国际象棋](https://listen80.github.io/small-game/games/chess/)  
 
-[五子棋](https://listen80.github.io/games/gomoku/)  
+[五子棋](https://listen80.github.io/small-game/games/gomoku/)  
 
-[中国象棋 Worker](https://listen80.github.io/games/chinese_chess/)  
+[中国象棋 Worker](https://listen80.github.io/small-game/games/chinese_chess/)  
 
 #### 小游戏
-[坦克大战](https://listen80.github.io/games/tank_battle/)  
+[坦克大战](https://listen80.github.io/small-game/games/tank_battle/)  
 
-[男人下百层](https://listen80.github.io/games/man_down/)  
+[男人下百层](https://listen80.github.io/small-game/games/man_down/)  
 
-[俄罗斯方块](https://listen80.github.io/games/tetris/)  
+[俄罗斯方块](https://listen80.github.io/small-game/games/tetris/)  
 
-[扫雷](https://listen80.github.io/games/mine_sweeping/)  
+[扫雷](https://listen80.github.io/small-game/games/mine_sweeping/)  
