@@ -65,3 +65,6 @@
   **中文简繁转换工具**：实现简体与繁体相互转换，满足不同场景需求。
 - [MD预览](https://listen80.github.io/smaill-tools/tools/markdown.html)
   **Markdown 预览工具**：实时预览 Markdown 格式文本排版效果。
+## 数据结构和算法
+- [HTTP Status](https://listen80.github.io/algorithm-practice)
+  **算法练习**：仅供记录。
