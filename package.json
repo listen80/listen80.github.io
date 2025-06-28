@@ -1,7 +1,7 @@
 {
   "name": "listen80.github.io",
   "version": "1.0.0",
-  "description": "[listen-template](https://listen80.github.io/listen-template/)  \r <!-- 91 -->\r #### 代码高亮工具\r [code-view](https://listen80.github.io/code-view/)  \r <!-- 92 -->",
+  "description": "记录学习过程",
   "main": "index.js",
   "scripts": {
     "start": "http-server -p 80 -c-0",
