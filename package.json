@@ -1,0 +1,15 @@
+{
+  "name": "listen80.github.io",
+  "version": "1.0.0",
+  "description": "记录学习过程",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server -p 9000 -c-1",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "http-server": "^14.1.1"
+  }
+}
