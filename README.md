@@ -34,7 +34,7 @@
   **个人简介项目**：用于展示个人信息、经历和技能等内容。
 - [function-line](https://listen80.github.io/function-line/)
   **功能线路项目**：具体功能依实际开发而定。
-- [练习](https://listen80.github.io/algorithm-practice)
+- [algorithm-practice](https://listen80.github.io/algorithm-practice)
   **算法练习**：仅供记录。
 
 ## node
