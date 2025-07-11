@@ -29,11 +29,15 @@
 - [webpack-uploadfiles-plugin](http://listen80.github.io/webpack-uploadfiles-plugin)
   **Webpack 自动上传插件**：构建完成后自动将文件上传至指定服务器。
 
-## 项目
+## demo
 - [personal-introduction](https://listen80.github.io/personal-introduction/)
   **个人简介项目**：用于展示个人信息、经历和技能等内容。
 - [function-line](https://listen80.github.io/function-line/)
   **功能线路项目**：具体功能依实际开发而定。
+- [练习](https://listen80.github.io/algorithm-practice)
+  **算法练习**：仅供记录。
+
+## node
 - [pokers-lottery](https://listen80.github.io/pokers-lottery/)
   **扑克抽奖项目**：基于扑克元素实现抽奖功能。
 - [webssh](https://listen80.github.io/webssh/)
@@ -71,6 +75,3 @@
 - [MD预览](https://listen80.github.io/small-tools/tools/markdown.html)
   **Markdown 预览工具**：实时预览 Markdown 格式文本排版效果。
 
-## 数据结构和算法
-- [练习](https://listen80.github.io/algorithm-practice)
-  **算法练习**：仅供记录。
