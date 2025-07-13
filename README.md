@@ -76,5 +76,7 @@
   **图片转 base64 工具**：轻松将图片转换为 base64 编码，方便网页使用。
 - [简繁转换](https://listen80.github.io/small-tools/examples/simple_trandition.html)
   **中文简繁转换工具**：实现简体与繁体相互转换，满足不同场景需求。
-- [MD预览](https://listen80.github.io/small-tools/examples/markdown.html)
+- [MD预览](https://listen80.github.io/small-tools/examples/markdown)
   **Markdown 预览工具**：实时预览 Markdown 格式文本排版效果。
+- [html2md](https://listen80.github.io/small-tools/examples/html)
+  **html2md**：HTML 转 Markdown 工具，可将 HTML 代码转换为 Markdown 格式文本，方便内容格式转换。
