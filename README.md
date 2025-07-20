@@ -47,7 +47,7 @@
 
 <!-- 5 -->
 ## 小游戏
-- [中国象棋](https://listen80.github.io/small-games/games/chinese_chess/)
+- [中国象棋](https://listen80.github.io/small-games/examples/chinese_chess/)
   **经典中国象棋**：原汁原味还原传统棋类玩法，体验古老智慧对决，采用 Worker 技术，大幅提升游戏流畅度。
 - [国际象棋](https://listen80.github.io/small-games/examples/chess/)
   **标准国际象棋**：遵循国际标准规则，带来专业的棋类对战体验。
